@@ -1,50 +1,50 @@
-var scene = {
-  mode: "clicking",
-  xOffset: 250,
-  yOffset: 250,
-  tmpXOffset: 0,
-  tmpYOffset: 0,
-  mappedMouseX: 0,
-  mappedMouseY: 0,
-
-  isMoveMode: function (){
-    if (this.mode == "move"){
-      return true
-    } else {
-      return false;
-    }
-  },
-  StartDragging: function(){
-    this.mode = "dragging";
-    this.tmpXOffset = mouseX - this.xOffset;
-    this.tmpYOffset = mouseY - this.yOffset;
-    //console.log ("Start dragging from: " + this.tmpXOffset + ", " + this.tmpYOffset);
-  },
-  isDragging: function(){
-    if(this.mode == "dragging"){
-      return true
-    } else {
-      return false;
-    }
-  },
-  WhileDragging: function(){
-    this.xOffset = mouseX - this.tmpXOffset;
-    this.yOffset = mouseY - this.tmpYOffset;
-    //console.log(this.xOffset + ", " + this.yOffset + ", " + mouseX + ", " +  mouseY);
-  },
-  StopDragging: function(){
-    console.log("stopped dragging");
-    this.tmpXOffset = 0;
-    this.tmpYOffset = 0;
+class Scene {
+  constructor() {
     this.mode = "clicking";
-  },
-
-  mapMouse: function(){
-    this.mappedMouseX =  mouseX - this.xOffset;
-    this.mappedMouseY =  mouseY - this.yOffset;
+    this.offset = [];
+    this.offset.x = 250;
+    this.offset.y =  250;
+    this.dragOffset = [];
+    this.dragOffset.x = 0;
+    this.dragOffset.y = 0;
+    this.mappedMouse = [];
+    this.mappedMouse.x = 0;
+    this.mappedMouse.y = 0;
   }
 }
 
+Scene.prototype.mapMouse = function () {
+  this.mappedMouse.x = mouseX - this.offset.x;
+  this.mappedMouse.y = mouseY - this.offset.y;
+};
+
+Scene.prototype.stopDragging = function () {
+  this.dragOffset.x = 0;
+  this.dragOffset.y = 0;
+  this.mode = "clicking";
+  cursor(ARROW);
+};
+
+Scene.prototype.isDragging = function () {
+  if(this.mode == "dragging"){
+    return true
+  } else {
+    return false;
+  }
+};
+Scene.prototype.whileDragging = function () {
+  this.offset.x = mouseX - this.dragOffset.x;
+  this.offset.y = mouseY - this.dragOffset.y;
+  //console.log(this.xOffset + ", " + this.yOffset + ", " + mouseX + ", " +  mouseY);
+
+};
+Scene.prototype.startDragging = function () {
+  this.mode = "dragging";
+  this.dragOffset.x = mouseX - this.offset.x;
+  this.dragOffset.y = mouseY - this.offset.y;
+  cursor(HAND);
+  console.log ("Start dragging from: " + this.dragOffset.x + ", " + this.dragOffset.y);
+};
 
 var backgroundGrid = function (){
   amount = 40;

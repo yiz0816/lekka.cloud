@@ -117,7 +117,7 @@ Screen.prototype.setSelection = function (state) {
 
 
 Screen.prototype.clicked = function () {
-  if (scene.mappedMouseX > this.pos.x && scene.mappedMouseX < this.pos.x + this.size.x && scene.mappedMouseY > this.pos.y && scene.mappedMouseY < this.pos.y + this.size.y){
+  if (sc.mappedMouse.x > this.pos.x && sc.mappedMouse.x < this.pos.x + this.size.x && sc.mappedMouse.y > this.pos.y && sc.mappedMouse.y < this.pos.y + this.size.y){
     return true
   } else {
     return false;

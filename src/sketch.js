@@ -1,8 +1,7 @@
   var screens = [];
-
+  var sc;
 
 function preload() {
-sc = new Scene();
 
   screens.push(screen1 = new Screen());
   screens.push(screen2 = new Screen());
@@ -18,16 +17,19 @@ sc = new Scene();
   screen1.connectTo(screen3);
   screen2.connectTo(screen3);
 
+  sc = new Scene();
+
 }
 
 function setup() {
+
   var canvas = createCanvas(windowWidth, windowHeight);
   background(colors.lightGrey);
 }
 
 function draw() {
   background(colors.lightGrey);
-  translate(scene.xOffset, scene.yOffset);
+  translate(sc.offset.x, sc.offset.y);
   backgroundGrid()
 /*
   line1 = new roundedLine(50,30,200,100);
@@ -48,7 +50,7 @@ function draw() {
 function mousePressed(){
   if(keyIsDown(32)){
     if(mouseButton === LEFT){
-      scene.StartDragging();
+      sc.startDragging();
     }
   }
   screens.forEach(function (item){
@@ -61,17 +63,17 @@ function mousePressed(){
 
 function mouseMoved(){
   //console.log(scene.mappedMouseX + ", " + scene.mappedMouseY + " – " + screen1.pos.x + ". " + screen1.pos.y);
-  scene.mapMouse();
+  sc.mapMouse();
 }
 
 function mouseReleased(){
-  if (scene.isDragging()){
-    scene.StopDragging();
+  if (sc.isDragging()){
+    sc.stopDragging();
   }
 }
 function mouseDragged(){
-  if(scene.isDragging()){
-    scene.WhileDragging();
+  if(sc.isDragging()){
+    sc.whileDragging();
   }
 }
 
