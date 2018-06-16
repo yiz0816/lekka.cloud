@@ -17,7 +17,7 @@ Screen.prototype.draw = function () {
   image(this.image, this.pos.x, this.pos.y, this.image.width/this.resolution,this.image.height/this.resolution);
   stroke(colors.darkGrey);
   strokeWeight(3);
-  ellipse(this.in.pos.x, this.in.pos.y,8,8);    //Start Point
+  //ellipse(this.in.pos.x, this.in.pos.y,8,8);    //Start Point
   ellipse(this.out.pos.x, this.out.pos.y,8,8);
 };
 

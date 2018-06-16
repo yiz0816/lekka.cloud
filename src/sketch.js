@@ -1,5 +1,5 @@
   var screens = [];
-  var sc, doc;
+  var sc, doc, gui;
 
 function setup() {
   doc = new Document();
@@ -24,7 +24,9 @@ function setup() {
   screen4.setPositionY(-600);
   screen4.connectTo(screen1);
 
-  var canvas = createCanvas(windowWidth, windowHeight);
+  //doc.canvas = createCanvas(windowWidth, windowHeight);
+  resizeCanvas(windowWidth, windowHeight);
+  loadGUI();
 }
 
 function draw() {
@@ -61,10 +63,22 @@ function mousePressed(){
     if(item.clicked()){
       console.log("clicked");
       doc.selection.push(item);
+      item.startDrag();
     }
   });
 }
 
+function keyPressed(){
+  console.log(key);
+  if(keyCode === "s" || key === "S"){
+    console.log("save");
+    doc.save(doc);
+  }
+  if(keyCode === "l" || key === "L"){
+    console.log("save");
+    doc.load();
+  }
+}
 function mouseMoved(){
   //console.log(scene.mappedMouseX + ", " + scene.mappedMouseY + " – " + screen1.pos.x + ". " + screen1.pos.y);
   sc.mapMouse();
@@ -74,10 +88,21 @@ function mouseReleased(){
   if (sc.isDragging()){
     sc.stopDragging();
   }
+  if(doc.selection.length  > 0){
+    doc.selection.forEach(function (item){
+      item.endDrag();
+    })
+  }
 }
 function mouseDragged(){
   if(sc.isDragging()){
     sc.whileDragging();
+  }
+  if(doc.selection.length  > 0){
+    doc.selection.forEach(function (item){
+      item.whileDrag();
+      item.setLocalPorts();
+    })
   }
 }
 

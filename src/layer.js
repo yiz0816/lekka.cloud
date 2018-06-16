@@ -7,19 +7,26 @@ class Layer {
     this.size = [];
     this.size.x = 0;
     this.size.y = 0;
+    this.dragOffset = [];
   }
 }
 
 Layer.prototype.startDrag = function () {
-  
+  this.dragOffset.x = mouseX - this.pos.x;
+  this.dragOffset.y = mouseY - this.pos.y;
+  console.log ("Start dragging layer from: " + this.dragOffset.x + ", " + this.dragOffset.y);
 };
 
 Layer.prototype.whileDrag = function () {
+  this.pos.x = mouseX - this.dragOffset.x;
+  this.pos.y = mouseY - this.dragOffset.y;
+  console.log("dragging layer to: " + this.pos.x + ", " + this.pos.y);
 
 };
 
 Layer.prototype.endDrag = function () {
-
+  this.dragOffset.x = 0;
+  this.dragOffset.y = 0;
 };
 
 Layer.prototype.setSize = function (x,y) {
