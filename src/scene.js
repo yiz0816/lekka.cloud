@@ -7,16 +7,6 @@ var scene = {
   mappedMouseX: 0,
   mappedMouseY: 0,
 
-  setMoveMode: function () {
-    this.mode = "move";
-    cursor(HAND);
-    console.log("show Hand");
-  },
-  setClickMode: function() {
-    this.mode = "clicking";
-    cursor(ARROW);
-    console.log("Back to clicking mode");
-  },
   isMoveMode: function (){
     if (this.mode == "move"){
       return true

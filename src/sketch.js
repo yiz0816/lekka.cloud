@@ -1,7 +1,8 @@
   var screens = [];
 
-function preload() {
 
+function preload() {
+sc = new Scene();
 
   screens.push(screen1 = new Screen());
   screens.push(screen2 = new Screen());
