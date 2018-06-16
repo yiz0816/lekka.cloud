@@ -1,12 +1,7 @@
-class Screen {
+class Screen extends Layer{
     constructor(){
+      super();
       this.image = loadImage('img/placeholder.jpg', () => this.initialise());
-      this.size = [];
-      this.size.x = 0;
-      this.size.y = 0;
-      this.pos = [];
-      this.pos.x = 0;
-      this.pos.y = 0;
       this.in = [];
       this.in.pos = [];
       this.in.connections = []
@@ -14,16 +9,10 @@ class Screen {
       this.out.pos = []
       this.out.connections = [];
       this.resolution = 2;
-      this.selected = false;
     }
   }
 
 Screen.prototype.draw = function () {
-  if(this.selected){
-    strokeWeight(5);
-    stroke(colors.yellow);
-    rect(this.pos.x, this.pos.y, this.image.width/2, this.image.height/2);
-  }
   imageMode(CORNER);
   image(this.image, this.pos.x, this.pos.y, this.image.width/this.resolution,this.image.height/this.resolution);
   stroke(colors.darkGrey);
@@ -31,29 +20,25 @@ Screen.prototype.draw = function () {
   ellipse(this.in.pos.x, this.in.pos.y,8,8);    //Start Point
   ellipse(this.out.pos.x, this.out.pos.y,8,8);
 };
+
+
 Screen.prototype.initialise = function () {
   this.setLocalPorts();
   this.updateSize();
-};
-
-Screen.prototype.updateSize = function () {
-  this.size.x = this.image.width / this.resolution;
-  this.size.y = this.image.height / this.resolution;
-  console.log(this.size.x + "-" + this.size.y + " @ " + this.resolution);
-  return this.size;
 };
 
 Screen.prototype.setResolution = function (x) {
   this.resolution = x;
   this.updateSize();
 };
+
+
 Screen.prototype.setLocalPorts = function () {
   this.in.pos.x =  this.pos.x;
   this.in.pos.y = this.image.height/2/this.resolution + this.pos.y;
   this.out.pos.x = this.image.width/2 + this.pos.x;
   this.out.pos.y = this.image.height/2/this.resolution + this.pos.y;
 };
-
 
 Screen.prototype.drawConnection = function () {
   for(var i = 0; i < this.out.connections.length; i ++){
@@ -109,10 +94,6 @@ Screen.prototype.drawLine = function (x1,y1,x2,y2) {
     line (this.startP.x, this.startP.y, this.startP.x +this.overshoot, this.startP.y)
     line (this.endP.x -this.overshoot, this.endP.y,this.endP.x, this.endP.y  )
     */
-};
-
-Screen.prototype.setSelection = function (state) {
-  this.selected = state;
 };
 
 

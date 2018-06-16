@@ -1,12 +1,16 @@
   var screens = [];
-  var sc;
+  var sc, doc;
 
-function preload() {
+function setup() {
+  doc = new Document();
+  sc = doc.scene;
+  screens = doc.screens;
+
 
   screens.push(screen1 = new Screen());
   screens.push(screen2 = new Screen());
   screens.push(screen3 = new Screen());
-
+  screens.push(screen4 = new Screen());
 
   screen1.connectTo(screen2);
   screen2.setPositionX(700);
@@ -16,15 +20,11 @@ function preload() {
   screen3.setPositionY(300);
   screen1.connectTo(screen3);
   screen2.connectTo(screen3);
-
-  sc = new Scene();
-
-}
-
-function setup() {
+  screen4.setPositionX(-250);
+  screen4.setPositionY(-600);
+  screen4.connectTo(screen1);
 
   var canvas = createCanvas(windowWidth, windowHeight);
-  background(colors.lightGrey);
 }
 
 function draw() {
@@ -45,6 +45,9 @@ function draw() {
   screens.forEach(function (item){
     item.drawConnection();
   })
+  doc.selection.forEach(function (item){
+    item.renderSelection();
+  })
 }
 
 function mousePressed(){
@@ -53,10 +56,11 @@ function mousePressed(){
       sc.startDragging();
     }
   }
+  doc.selection = [];
   screens.forEach(function (item){
-    item.setSelection(false);
     if(item.clicked()){
-      item.setSelection(true);
+      console.log("clicked");
+      doc.selection.push(item);
     }
   });
 }
