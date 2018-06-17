@@ -1,18 +1,21 @@
 class Document {
   constructor() {
     this.scene = new Scene();
-    this.settings = "placeholder";
+    this.settings = ["placeholder", "myColor", "myAngle"];
     this.version = "0.1";
     this.screens = [];
     this.selection = [];
-    this.canvas = function () {createCanvas(windowWidth, windowHeight).drop(this.load())};
+    this.canvas = function () {createCanvas(windowWidth, windowHeight)};
   }
 }
 
 Document.prototype.save = function (doc) {
-  save(doc, "layout.json");
+  saveJSON(doc, "layout.json");
 };
 
 Document.prototype.load = function () {
-  console.log("empty load() function");
+  file = "config.json";
+  var data = console.log(loadJSON("../data/" + file));
+  console.log(data);
+  //doc = data;
 };

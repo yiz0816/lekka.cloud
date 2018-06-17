@@ -11,6 +11,7 @@ function setup() {
   screens.push(screen2 = new Screen());
   screens.push(screen3 = new Screen());
   screens.push(screen4 = new Screen());
+  screens.push(screen5 = new Screen());
 
   screen1.connectTo(screen2);
   screen2.setPositionX(700);
@@ -23,6 +24,7 @@ function setup() {
   screen4.setPositionX(-250);
   screen4.setPositionY(-600);
   screen4.connectTo(screen1);
+  screen5.connectTo(screen3);
 
   //doc.canvas = createCanvas(windowWidth, windowHeight);
   resizeCanvas(windowWidth, windowHeight);
@@ -75,7 +77,7 @@ function keyPressed(){
     doc.save(doc);
   }
   if(keyCode === "l" || key === "L"){
-    console.log("save");
+    console.log("load file");
     doc.load();
   }
 }

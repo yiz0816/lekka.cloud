@@ -1,0 +1,105 @@
+{
+  "scene": {
+    "mode": "clicking",
+    "offset": [],
+    "dragOffset": [],
+    "mappedMouse": []
+  },
+  "settings": [
+    "placeholder",
+    "myColor",
+    "myAngle"
+  ],
+  "version": "0.1",
+  "screens": [
+    {
+      "pos": [],
+      "test": "test",
+      "size": [],
+      "dragOffset": [],
+      "image": {
+        "width": 596,
+        "height": 950,
+        "canvas": {},
+        "drawingContext": {},
+        "_pixelDensity": 1,
+        "_modified": false,
+        "pixels": [],
+        "modified": true
+      },
+      "in": [],
+      "out": [],
+      "resolution": 2,
+      "startP": [],
+      "endP": [],
+      "siz": [],
+      "overshoot": 146.5
+    },
+    {
+      "pos": [],
+      "test": "test",
+      "size": [],
+      "dragOffset": [],
+      "image": {
+        "width": 596,
+        "height": 950,
+        "canvas": {},
+        "drawingContext": {},
+        "_pixelDensity": 1,
+        "_modified": false,
+        "pixels": [],
+        "modified": true
+      },
+      "in": [],
+      "out": [],
+      "resolution": 2,
+      "startP": [],
+      "endP": [],
+      "siz": [],
+      "overshoot": 99
+    },
+    {
+      "pos": [],
+      "test": "test",
+      "size": [],
+      "dragOffset": [],
+      "image": {
+        "width": 596,
+        "height": 950,
+        "canvas": {},
+        "drawingContext": {},
+        "_pixelDensity": 1,
+        "_modified": false,
+        "pixels": [],
+        "modified": true
+      },
+      "in": [],
+      "out": [],
+      "resolution": 2
+    },
+    {
+      "pos": [],
+      "test": "test",
+      "size": [],
+      "dragOffset": [],
+      "image": {
+        "width": 596,
+        "height": 950,
+        "canvas": {},
+        "drawingContext": {},
+        "_pixelDensity": 1,
+        "_modified": false,
+        "pixels": [],
+        "modified": true
+      },
+      "in": [],
+      "out": [],
+      "resolution": 2,
+      "startP": [],
+      "endP": [],
+      "siz": [],
+      "overshoot": 60
+    }
+  ],
+  "selection": []
+}
