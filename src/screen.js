@@ -103,11 +103,14 @@ Screen.prototype.drawLine = function (x1,y1,x2,y2) {
     */
 };
 
-
 Screen.prototype.clicked = function () {
   if (sc.mappedMouse.x > this.pos.x && sc.mappedMouse.x < this.pos.x + this.size.x && sc.mappedMouse.y > this.pos.y && sc.mappedMouse.y < this.pos.y + this.size.y){
     return true
   } else {
     return false;
   }
+}
+
+function createNewScreen(){
+  screens.push( new Screen());
 }

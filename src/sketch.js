@@ -35,6 +35,9 @@ function setup() {
   // Instructions
   console.log("Press `S` to save the current layout to a config.json");
   console.log("Press `L` to load a config.json file.")
+
+  // Floating Interface Elements
+  createAddScreenButton();
 }
 
 function draw() {
