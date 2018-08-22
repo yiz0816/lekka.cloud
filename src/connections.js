@@ -1,4 +1,6 @@
-class roundedLine {
+ /* For now this file is not used at all
+ 
+  class roundedLine {
   constructor (x1,y1,x2,y2){
     this.startP = [];
     this.startP.x = x1;
@@ -14,7 +16,7 @@ class roundedLine {
 }
 
 roundedLine.prototype.draw = function () {
-  stroke(colors.connectionLines);
+  stroke(colors.Grey);
   strokeWeight(3);
   noFill();
   bezier(
@@ -33,7 +35,7 @@ roundedLine.prototype.draw = function () {
   strokeWeight(1);
   line (this.startP.x, this.startP.y, this.startP.x +this.overshoot, this.startP.y)
   line (this.endP.x -this.overshoot, this.endP.y,this.endP.x, this.endP.y  )
-  */
+
 };
 
 function drawConnection(x1,y1,x2,y2){
@@ -49,16 +51,17 @@ function drawConnection(x1,y1,x2,y2){
   this.overshoot = this.size.x/2;
 
 
-  stroke(colors.connectionLines);
+  stroke(colors.highlight80);
   strokeWeight(3);
   noFill();
   bezier(
-    this.startP.x, this.startP.y,               // Point 1
-    this.startP.x +this.overshoot, this.startP.y,           // Point 2
-    this.endP.x -this.overshoot, this.endP.y,             // Point 3
-    this.endP.x, this.endP.y                    // Point 4
+    this.startP.x, this.startP.y,                   // Point 1
+    this.startP.x +this.overshoot, this.startP.y,   // Point 2
+    this.endP.x -this.overshoot, this.endP.y,       // Point 3
+    this.endP.x, this.endP.y                        // Point 4
   )
   fill(colors.white);
   ellipse(this.startP.x, this.startP.y,8,8);    //Start Point
   ellipse(this.endP.x, this.endP.y,8,8);        //End Point
 }
+*/
