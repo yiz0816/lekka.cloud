@@ -3,8 +3,8 @@ var colors = {
   Grey: '#888',
   darkGrey: '#cccccc',
   pink: '#f957c3',
-  white: '#FFFFFF',
-  yellow: '#c1b030'
+  white: '#FFFFFF'
 }
 
 colors.connectionLines = colors.pink
+colors.highlight = colors.pink
