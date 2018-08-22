@@ -1,6 +1,8 @@
 class Screen extends Layer{
-    constructor(){
+    constructor(x, y){
       super();
+      this.pos.x = x || 0;
+      this.pos.y = y || 0;
       this.image = loadImage('img/placeholder.jpg', () => this.initialise());
       this.in = [];
       this.in.pos = [];
@@ -9,6 +11,7 @@ class Screen extends Layer{
       this.out.pos = []
       this.out.connections = [];
       this.resolution = 2;
+      console.log(this);
     }
   }
 
@@ -19,6 +22,9 @@ Screen.prototype.draw = function () {
   strokeWeight(3);
   //ellipse(this.in.pos.x, this.in.pos.y,8,8);    //Start Point
   ellipse(this.out.pos.x, this.out.pos.y,8,8);
+  fill(0);
+  noStroke();
+  text(this.ID, this.pos.x, this.pos.y-10);
 };
 
 
@@ -58,6 +64,7 @@ Screen.prototype.setPositionX = function (x) {
   this.pos.x = x;
   this.setLocalPorts();
 };
+
 Screen.prototype.setPositionY = function (y) {
   this.pos.y = y;
   this.setLocalPorts();

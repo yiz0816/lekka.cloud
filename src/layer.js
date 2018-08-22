@@ -1,12 +1,11 @@
 class Layer {
-  constructor(){
-    this.pos = [];
-    this.pos.x = 0;
-    this.pos.y = 0;
-    this.size = [];
-    this.size.x = 0;
-    this.size.y = 0;
+  constructor(x,y){
+    this.pos = createVector(x,y);
+    this.pos.p5 = ""; 
+    this.size = createVector();
+    this.size.p5 = "";
     this.dragOffset = [];
+    this.ID = Math.random().toString(36).substr(2, 9);
   }
 }
 

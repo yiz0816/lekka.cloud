@@ -1,5 +1,6 @@
   var screens = [];
   var sc, doc, gui;
+  var data = {};
 
 function setup() {
   doc = new Document();
@@ -7,7 +8,8 @@ function setup() {
   screens = doc.screens;
 
 
-  screens.push(screen1 = new Screen());
+  screens.push(screen1 = new Screen(500,300));
+
   screens.push(screen2 = new Screen());
   screens.push(screen3 = new Screen());
   screens.push(screen4 = new Screen());
@@ -29,6 +31,10 @@ function setup() {
   //doc.canvas = createCanvas(windowWidth, windowHeight);
   resizeCanvas(windowWidth, windowHeight);
   loadGUI();
+
+  // Instructions
+  console.log("Press `S` to save the current layout to a config.json");
+  console.log("Press `L` to load a config.json file.")
 }
 
 function draw() {
@@ -63,7 +69,7 @@ function mousePressed(){
   doc.selection = [];
   screens.forEach(function (item){
     if(item.clicked()){
-      console.log("clicked");
+      //console.log("clicked");
       doc.selection.push(item);
       item.startDrag();
     }
@@ -78,7 +84,7 @@ function keyPressed(){
   }
   if(keyCode === "l" || key === "L"){
     console.log("load file");
-    doc.load();
+    doc.updateFile();
   }
 }
 function mouseMoved(){

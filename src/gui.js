@@ -6,7 +6,6 @@ function loadGUI(){
     //gui.addGlobals('file');
     gui = QuickSettings.create(0, 0, " ")
     .addFileChooser("file chooser", "pick an image...", "application/json", onFileChosen)
-
     ;
 }
 function onFileChosen(file){

@@ -1,5 +1,6 @@
 var colors = {
   lightGrey: '#FAFAFA',
+  Grey: '#888',
   darkGrey: '#cccccc',
   pink: '#f957c3',
   white: '#FFFFFF',

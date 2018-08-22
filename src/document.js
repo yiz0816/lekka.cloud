@@ -10,12 +10,29 @@ class Document {
 }
 
 Document.prototype.save = function (doc) {
-  saveJSON(doc, "layout.json");
+  console.log(doc);
+  saveJSON(doc, "config.json");
 };
 
-Document.prototype.load = function () {
-  file = "config.json";
-  var data = console.log(loadJSON("../data/" + file));
-  console.log(data);
-  //doc = data;
+Document.prototype.loadFile = function () {
+  var file = "./data/example.json";
+  data = loadJSON(file, jsonLoaded());
 };
+
+var jsonLoaded = function (){
+  console.log("loaded");
+  console.log(data);
+}
+
+Document.prototype.updateFile = function(){
+  this.loadFile();
+
+  console.log("file contains: " + data);
+  console.log(data);
+
+  //doc.scene = data.scene;
+  //doc.settings = data.settings;
+  doc.version = data.version;
+  //doc.screens = data.screens;
+  //doc.selection = data.selection;
+}
