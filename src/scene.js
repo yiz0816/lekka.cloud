@@ -22,7 +22,6 @@ Scene.prototype.stopDragging = function () {
   this.dragOffset.x = 0;
   this.dragOffset.y = 0;
   this.mode = "clicking";
-  cursor(ARROW);
 };
 
 Scene.prototype.isDragging = function () {
@@ -33,17 +32,18 @@ Scene.prototype.isDragging = function () {
   }
 };
 Scene.prototype.whileDragging = function () {
-  this.offset.x = mouseX - this.dragOffset.x;
-  this.offset.y = mouseY - this.dragOffset.y;
-  //console.log(this.xOffset + ", " + this.yOffset + ", " + mouseX + ", " +  mouseY);
-
+  if (sc.mode === "dragging"){
+    this.offset.x = mouseX - this.dragOffset.x;
+    this.offset.y = mouseY - this.dragOffset.y;
+  } else {
+    this.stopDragging();
+  }
 };
+
 Scene.prototype.startDragging = function () {
   this.mode = "dragging";
   this.dragOffset.x = mouseX - this.offset.x;
   this.dragOffset.y = mouseY - this.offset.y;
-  cursor(HAND);
-  console.log ("Start dragging from: " + this.dragOffset.x + ", " + this.dragOffset.y);
 };
 
 var backgroundGrid = function (){

@@ -62,14 +62,16 @@ function draw() {
   doc.selection.forEach(function (item){
     item.renderSelection();
   })
-}
 
-function mousePressed(){
-  if(keyIsDown(32)){
-    if(mouseButton === LEFT){
+  if (keyIsPressed === true && key === " "){
+    cursor(HAND);
+    if(mouseIsPressed === true){
       sc.startDragging();
     }
   }
+}
+
+function mousePressed(){
   doc.selection = [];
   screens.forEach(function (item){
     if(item.clicked()){
@@ -81,7 +83,6 @@ function mousePressed(){
 }
 
 function keyPressed(){
-  console.log(key);
   if(keyCode === "s" || key === "S"){
     console.log("save");
     doc.save(doc);
@@ -97,9 +98,6 @@ function mouseMoved(){
 }
 
 function mouseReleased(){
-  if (sc.isDragging()){
-    sc.stopDragging();
-  }
   if(doc.selection.length  > 0){
     doc.selection.forEach(function (item){
       item.endDrag();
@@ -107,15 +105,21 @@ function mouseReleased(){
   }
 }
 function mouseDragged(){
-  if(sc.isDragging()){
-    sc.whileDragging();
-  }
-  if(doc.selection.length  > 0){
+  sc.whileDragging();
+
+  if(doc.selection.length  > 0 && sc.mode == "clicking"){
     doc.selection.forEach(function (item){
       item.whileDrag();
       item.setLocalPorts();
     })
   }
+}
+
+function keyReleased() {
+  if (key === " "){
+    cursor(ARROW);
+  }
+  sc.stopDragging();
 }
 
 function windowResized() {
