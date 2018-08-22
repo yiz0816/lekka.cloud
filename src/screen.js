@@ -16,6 +16,11 @@ class Screen extends Layer{
   }
 
 Screen.prototype.draw = function () {
+  strokeWeight(1)
+  noFill();
+  stroke(colors.grey);
+  rect(this.pos.x, this.pos.y, this.size.x, this.size.y);
+
   imageMode(CORNER);
   image(this.image, this.pos.x, this.pos.y, this.image.width/this.resolution,this.image.height/this.resolution);
   stroke(colors.darkGrey);
@@ -82,7 +87,7 @@ Screen.prototype.drawLine = function (x1,y1,x2,y2) {
     this.siz.y = abs(y1-y2);
     this.overshoot = this.siz.x/2;
 
-    stroke(colors.connectionLines);
+    stroke(colors.highlight40);
     strokeWeight(3);
     noFill();
     bezier(

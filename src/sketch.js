@@ -6,6 +6,7 @@ function setup() {
   doc = new Document();
   sc = doc.scene;
   screens = doc.screens;
+  createSubColors();
 
 
   screens.push(screen1 = new Screen(500,300));
