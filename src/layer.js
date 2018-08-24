@@ -1,11 +1,9 @@
 class Layer {
   constructor(x,y){
     this.pos = createVector(x,y);
-    this.pos.p5 = ""; 
     this.size = createVector();
-    this.size.p5 = "";
     this.dragOffset = [];
-    this.ID = Math.random().toString(36).substr(2, 9);
+    this.ID = createID();
   }
 }
 
@@ -44,3 +42,8 @@ Layer.prototype.renderSelection = function () {
 Layer.prototype.updateSize = function () {
   this.setSize(this.image.width / this.resolution, this.image.height / this.resolution);
 };
+
+var createID = function(){
+  var id = Math.random().toString(36).substr(2, 9);
+  return id
+}

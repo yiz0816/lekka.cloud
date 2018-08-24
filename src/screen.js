@@ -11,7 +11,7 @@ class Screen extends Layer{
       this.out.pos = []
       this.out.connections = [];
       this.resolution = 2;
-      console.log(this);
+      console.log("New screen generated: " + this.ID);
     }
   }
 
@@ -118,4 +118,11 @@ Screen.prototype.clicked = function () {
 
 function createNewScreen(){
   screens.push( new Screen());
+}
+
+function createNewScreen2(x,y){
+  var id = createID()
+  screens[id] = new Screen();
+  screens[id].setPositionX(x);
+  screens[id].setPositionY(y);
 }

@@ -1,38 +1,115 @@
 class Document {
   constructor() {
     this.scene = new Scene();
-    this.settings = ["placeholder", "myColor", "myAngle"];
-    this.version = "0.1";
+    this.settings = { "option1": "placeholder", "option2": "myColor", "option3": "myAngle" };
+    this.version = random(10);
     this.screens = [];
     this.selection = [];
-    this.canvas = function () {createCanvas(windowWidth, windowHeight)};
+    this.canvas = function () { createCanvas(windowWidth, windowHeight) };
   }
 }
 
-Document.prototype.save = function (doc) {
-  console.log(doc);
-  saveJSON(doc, "config.json");
+Document.prototype.save = function () {
+  var file = {};
+
+  file.settings = {};
+  for (var key in doc.settings) {
+    // skip loop if the property is from prototype
+    if (!doc.settings.hasOwnProperty(key)) continue;
+    file.settings[key] = doc.settings[key];
+  }
+
+  file.version = doc.version;
+
+  file.scene = {};
+  for (var key in doc.scene) {
+
+    // skip loop if the property is from prototype
+    if (doc.scene.hasOwnProperty(key)) {
+
+      // Write String files to data file
+      if (typeof doc.scene[key] === "string") {
+        file.scene[key] = doc.scene[key];
+      } else {
+        // Create object to store next nevel hierachy
+        file.scene[key] = {};
+      }
+
+      // One level deeper
+      for (var subkey in doc.scene[key]) {
+        if (doc.scene[key].hasOwnProperty(subkey)) {
+
+          // Create Object to store values
+          if (typeof doc.scene[key][subkey] === "number") {
+            file.scene[key][subkey] = doc.scene[key][subkey];
+          }
+        }
+      }
+    }
+  }
+
+  file.screens = {};
+  for (var key in doc.screens) {
+
+    // skip loop if the property is from prototype
+    if (doc.screens.hasOwnProperty(key)) {
+
+      // Create object to store next nevel hierachy
+      file.screens[key] = {};
+
+      // One level deeper
+      for (var subkey in doc.screens[key]) {
+        if (doc.screens[key].hasOwnProperty(subkey)) {
+
+          // Create Object to store values
+          file.screens[key][subkey] = doc.screens[key][subkey];
+        }
+      }
+    }
+  }
+
+
+  console.log(file);
+  saveJSON(file, "config.json");
 };
 
 Document.prototype.loadFile = function () {
-  var file = "./data/example.json";
-  data = loadJSON(file, jsonLoaded());
+  var file = "./data/config.json";
+  console.log("loading " + file);
+  json = loadJSON(file), this.jsonLoaded(file);
 };
 
-var jsonLoaded = function (){
-  console.log("loaded");
-  console.log(data);
+
+Document.prototype.jsonLoaded = function (uri) {
+  //console.log(uri);
+  var name = uri.split("/");
+  name = name[name.length - 1];
+  console.log("" + name + "' loaded");
+  console.log("File contains: " + json);
+  this.updateFile();
 }
 
-Document.prototype.updateFile = function(){
-  this.loadFile();
+Document.prototype.updateFile = function () {
+  console.log("updating sceen");
 
-  console.log("file contains: " + data);
-  console.log(data);
+  if (typeof json === "undefined") {
+    console.log("error");
+    break;
+  }
 
-  //doc.scene = data.scene;
-  //doc.settings = data.settings;
-  doc.version = data.version;
-  //doc.screens = data.screens;
-  //doc.selection = data.selection;
+  //Map values
+  this.version = json.version;
+  this.scene.mode = "clicking";
+
+  for (var key in json.settings) {
+    // skip loop if the property is from prototype
+    if (!json.settings.hasOwnProperty(key)) continue;
+    this.settings[key] = json.settings[key];
+  }
+
+  for (var key in json.scene) {
+    // skip loop if the property is from prototype
+    if (!json.scene.hasOwnProperty(key)) continue;
+    this.scene[key] = json.scene[key];
+  }
 }

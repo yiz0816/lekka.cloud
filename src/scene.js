@@ -1,15 +1,9 @@
 class Scene {
   constructor() {
     this.mode = "clicking";
-    this.offset = [];
-    this.offset.x = 250;
-    this.offset.y =  250;
-    this.dragOffset = [];
-    this.dragOffset.x = 0;
-    this.dragOffset.y = 0;
-    this.mappedMouse = [];
-    this.mappedMouse.x = 0;
-    this.mappedMouse.y = 0;
+    this.offset = createVector();;
+    this.dragOffset = createVector();;
+    this.mappedMouse = createVector();
   }
 }
 

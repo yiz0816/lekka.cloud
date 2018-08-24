@@ -1,6 +1,4 @@
-  var screens = [];
-  var sc, doc, gui;
-  var data = {};
+var sc, data, gui, data, json, screens;
 
 function setup() {
   doc = new Document();
@@ -9,8 +7,12 @@ function setup() {
   createSubColors();
 
 
-  screens.push(screen1 = new Screen(500,300));
+  createNewScreen2(random(-50, 50), random(-50, 50));
+  createNewScreen2(random(-50, 50), random(-50, 50));
+  createNewScreen2(random(-50, 50), random(-50, 50));
+  createNewScreen2(random(-50, 50), random(-50, 50));
 
+  /*screens.push(screen1 = new Screen(500,300));
   screens.push(screen2 = new Screen());
   screens.push(screen3 = new Screen());
   screens.push(screen4 = new Screen());
@@ -27,7 +29,7 @@ function setup() {
   screen4.setPositionX(-250);
   screen4.setPositionY(-600);
   screen4.connectTo(screen1);
-  screen5.connectTo(screen3);
+  screen5.connectTo(screen3);*/
 
   //doc.canvas = createCanvas(windowWidth, windowHeight);
   resizeCanvas(windowWidth, windowHeight);
@@ -45,70 +47,70 @@ function draw() {
   background(colors.lightGrey);
   translate(sc.offset.x, sc.offset.y);
   backgroundGrid()
-/*
-  line1 = new roundedLine(50,30,200,100);
-  line2 = new roundedLine(600,-150,-300,50);
-  line3 = new roundedLine(0,0,50,0);
-  line1.draw();
-  line2.draw();
-  line3.draw();
-*/
-  screens.forEach(function (item){
-    item.draw();
-  });
-  screens.forEach(function (item){
-    item.drawConnection();
-  })
-  doc.selection.forEach(function (item){
+
+
+  for (var key in screens) {
+    // skip loop if the property is from prototype
+    if (!screens.hasOwnProperty(key)) continue;
+    screens[key].draw();
+    screens[key].drawConnection();
+  }
+
+  doc.selection.forEach(function (item) {
     item.renderSelection();
   })
 
-  if (keyIsPressed === true && key === " "){
+  if (keyIsPressed === true && keyCode === 32) {
     cursor(HAND);
-    if(mouseIsPressed === true){
-      sc.startDragging();
+    if (mouseIsPressed === true) {
+      doc.scene.startDragging();
+      console.log("start draggin");
     }
   }
 }
 
-function mousePressed(){
+function mousePressed() {
   doc.selection = [];
-  screens.forEach(function (item){
-    if(item.clicked()){
-      //console.log("clicked");
-      doc.selection.push(item);
-      item.startDrag();
+  for (var key in screens) {
+    // skip loop if the property is from prototype
+    if (screens.hasOwnProperty(key)) {
+      if (screens[key].clicked()) {
+        //console.log("clicked");
+        doc.selection.push(screens[key]);
+        screens[key].startDrag();
+      }
     }
-  });
+  }
 }
 
-function keyPressed(){
-  if(keyCode === "s" || key === "S"){
+function keyPressed() {
+  if (key === "s" || key === "S") {
     console.log("save");
-    doc.save(doc);
+    doc.save();
   }
-  if(keyCode === "l" || key === "L"){
-    console.log("load file");
+  if (key === "l" || key === "L") {
+    doc.loadFile();
+  }
+  if (key === "1" || key === "1") {
     doc.updateFile();
   }
 }
-function mouseMoved(){
-  //console.log(scene.mappedMouseX + ", " + scene.mappedMouseY + " – " + screen1.pos.x + ". " + screen1.pos.y);
+function mouseMoved() {
   sc.mapMouse();
 }
 
-function mouseReleased(){
-  if(doc.selection.length  > 0){
-    doc.selection.forEach(function (item){
+function mouseReleased() {
+  if (doc.selection.length > 0) {
+    doc.selection.forEach(function (item) {
       item.endDrag();
     })
   }
 }
-function mouseDragged(){
+function mouseDragged() {
   sc.whileDragging();
 
-  if(doc.selection.length  > 0 && sc.mode == "clicking"){
-    doc.selection.forEach(function (item){
+  if (doc.selection.length > 0 && sc.mode == "clicking") {
+    doc.selection.forEach(function (item) {
       item.whileDrag();
       item.setLocalPorts();
     })
@@ -116,7 +118,7 @@ function mouseDragged(){
 }
 
 function keyReleased() {
-  if (key === " "){
+  if (key === " ") {
     cursor(ARROW);
   }
   sc.stopDragging();
