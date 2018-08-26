@@ -1,11 +1,9 @@
-var file = "";
-
 function loadGUI(){
   // create the GUI
     //gui = createGui('Main');
     //gui.addGlobals('file');
-    gui = QuickSettings.create(0, 0, " ")
-    .addFileChooser("file chooser", "pick an image...", "application/json", onFileChosen)
+    //gui = QuickSettings.create(0, 0, " ")
+    //.addFileChooser("file chooser", "pick an image...", "application/json", onFileChosen)
     ;
 }
 function onFileChosen(file){
@@ -23,4 +21,4 @@ function createAddScreenButton(){
   addScreenButtomn.style("line-height", "80px");
   addScreenButtomn.style("user-select", "none");
   addScreenButtomn.mouseClicked(function(){new Screen()});
-} 
+}

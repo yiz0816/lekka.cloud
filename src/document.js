@@ -4,6 +4,7 @@ class Document {
     this.settings = { "option1": "placeholder", "option2": "myColor", "option3": "myAngle" };
     this.screens = {};
     this.selection = [];
+    this.ports = {};
     this.canvas = function () { createCanvas(windowWidth, windowHeight) };
   }
 }
@@ -51,41 +52,6 @@ Document.prototype.updateFile = function () {
   for (var key in json.screens) {
     console.log(json.screens[key].ID);
     new Screen(json.screens[key].pos.x, json.screens[key].pos.y, json.screens[key].ID);
-    //doc.screens[key].note = json.screens[key].ID;
-    //console.log(json.screens[key].pos.x + " - " + json.screens[key].pos.y);
   }
-
-  //console.log(doc.screens = Object.assign(doc.screens, json.screens))
   console.log("finished updating");
-}
-
-function eachRecursive3(obj) {
-  //console.log("Start recusrion");
-  //console.log(test2);
-  //console.log("count: " + count);
-
-  for (var k in obj) {
-    if (obj[k] !== null && obj.hasOwnProperty(k)) {
-      //console.log(typeof obj[k]);
-      //console.log(obj[k]);
-
-      if (obj.hasOwnProperty("p5")) {
-        // console.log("P5 element found");
-        delete screens[obj].p5;
-        //console.log(obj);
-
-      } else if (typeof obj[k] === "string" || typeof obj === "number") {
-        //console.log(obj);
-        console.log("write value:  " + obj);
-        //test2[k] = obj[k];
-
-      } else if (typeof obj === "object" && !obj.hasOwnProperty("p5") || !obj.hasOwnProperty("image")) {
-        //console.log("Object found: Start new Recursions");
-        // console.log("Assign:"  + obj[k].constructor.name + " to " + test2[k] );
-        test2[k] = obj[k];
-        count++
-        eachRecursive3(obj[k]);
-      }
-    }
-  }
 }

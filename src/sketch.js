@@ -5,33 +5,9 @@ var count = 0;
 function setup() {
   doc = new Document();
   sc = doc.scene;
+  ports = doc.port;
   createSubColors();
   frameRate(60);
-
-
-  //createNewScreen(random(-50, 50), random(-50, 50));
-  //createNewScreen(random(-50, 50), random(-50, 50));
-  //createNewScreen2(random(-50, 50), random(-50, 50));
-  //createNewScreen2(random(-50, 50), random(-50, 50));
-
-  /*screens.push(screen1 = new Screen(500,300));
-  screens.push(screen2 = new Screen());
-  screens.push(screen3 = new Screen());
-  screens.push(screen4 = new Screen());
-  screens.push(screen5 = new Screen());
-
-  screen1.connectTo(screen2);
-  screen2.setPositionX(700);
-  screen2.setPositionY(-200);
-  screen1.setPositionX(-100);
-  screen3.setPositionX(800);
-  screen3.setPositionY(300);
-  screen1.connectTo(screen3);
-  screen2.connectTo(screen3);
-  screen4.setPositionX(-250);
-  screen4.setPositionY(-600);
-  screen4.connectTo(screen1);
-  screen5.connectTo(screen3);*/
 
   //doc.canvas = createCanvas(windowWidth, windowHeight);
   resizeCanvas(windowWidth, windowHeight);
@@ -46,27 +22,59 @@ function setup() {
 }
 
 function draw() {
+
+  // Render Scenery
   background(colors.lightGrey);
   translate(sc.offset.x, sc.offset.y);
-  backgroundGrid()
+  backgroundGrid();
+  sc.mapMouse();
 
-
+  // Render Screens and Connection
   for (var key in doc.screens) {
     doc.screens[key].draw();
-    doc.screens[key].drawConnection();
-    //console.log(key + " at " + screens[key].pos.x)
+    doc.ports[key].draw();
+    //doc.screens[key].drawConnection();
   }
 
-  doc.selection.forEach(function (item) {
-    item.renderSelection();
-  })
+  // Render Selection
+  if (doc.selection.length > 0) {
+    for (var key in doc.selection) {
+      doc.selection[key].renderSelection();
+    }
+  }
 
+  // Dragggin the layout pane
   if (keyIsPressed === true && keyCode === 32) {
     cursor(HAND);
     if (mouseIsPressed === true) {
       doc.scene.startDragging();
       console.log("start draggin");
     }
+  }
+
+  // Hover Screens
+  for (var k in doc.screens) {
+    if (doc.screens[k].isMouseOver()) {
+      doc.screens[k].renderSelection();
+      break;
+    }
+  }
+
+  // Hover Ports
+  for (var k in doc.ports) {
+    if (doc.ports[k].isMouseOver()) {
+      doc.ports[k].renderHighlight();
+      if (mouseIsPressed && doc.ports[k].isMouseOver()) {
+        doc.ports[k].drawConncetion(mouseX, mouseY);
+      }
+    }
+  }
+  for (var i in doc.screens) {
+    if(doc.screens[i].isMouseOver()){
+      //console.log(doc.screens[i].ID);
+      //console.log(doc.scene.mappedMouse.x);
+    }
+    //console.log(doc.screens[i].isMouseOver());
   }
 }
 
@@ -75,8 +83,8 @@ function mousePressed() {
   for (var key in doc.screens) {
     // skip loop if the property is from prototype
     if (doc.screens.hasOwnProperty(key)) {
-      if (doc.screens[key].clicked()) {
-        //console.log("clicked");
+      if (doc.screens[key].isMouseOver()) {
+        //console.log("isMouseOver");
         doc.selection.push(doc.screens[key]);
         doc.screens[key].startDrag();
         break;
@@ -97,26 +105,44 @@ function keyPressed() {
     doc.updateFile();
   }
 }
-function mouseMoved() {
-  sc.mapMouse();
-}
 
 function mouseReleased() {
-  if (doc.selection.length > 0) {
-    doc.selection.forEach(function (item) {
-      item.endDrag();
-    })
+  for (var key in doc.selection) {
+    doc.selection[key].endDrag();
+    doc.selection[key].updatePort();
+    //doc.ports[key].endDrag();
+  }
+
+  if (doc.scene.mode == "connect") {
+    for (var k in doc.ports) {
+      for (var i in doc.screens) {
+        console.log(doc.screens[i]);
+        if (doc.screens[i].isMouseOver()) {
+          console.log("hit target");
+          doc.ports[k].connectTo(doc.screens[i]);
+        }
+      }
+    }
   }
 }
+
+
 function mouseDragged() {
   sc.whileDragging();
 
-  if (doc.selection.length > 0 && sc.mode == "clicking") {
-    doc.selection.forEach(function (item) {
-      item.whileDrag();
-      item.setLocalPorts();
-    })
+  if (doc.scene.mode == "clicking") {
+    for (var key in doc.selection) {
+      doc.selection[key].whileDrag();
+      //doc.ports[key].whileDrag();
+    }
   }
+
+  //for (var k in doc.)
+  /* if (doc.selection.length > 0 && sc.mode == "clicking") {
+     doc.selection.forEach(function (item) {
+       item.whileDrag();
+     })
+   }*/
 }
 
 function keyReleased() {
