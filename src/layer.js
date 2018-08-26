@@ -39,7 +39,7 @@ Layer.prototype.renderSelection = function () {
     strokeWeight(2);
     noFill();
     stroke(colors.highlight);
-    rect(this.pos.x, this.pos.y, this.size.x, this.size.y);
+    rect(this.pos.x, this.pos.y, this.size.w, this.size.h);
 };
 
 Layer.prototype.updateSize = function () {
