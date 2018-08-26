@@ -1,8 +1,202 @@
 {
-  "settings": {
-    "option1": "blfdf",
-    "option2": "dfgffd",
-    "option3": "fgdg"
+  "scene": {
+    "mode": "clicking",
+    "offset": {
+      "x": 500,
+      "y": 500,
+      "z": 0
+    },
+    "dragOffset": {
+      "x": 0,
+      "y": 0,
+      "z": 0
+    },
+    "mappedMouse": {
+      "x": 626,
+      "y": 621,
+      "z": 0
+    },
+    "random": 65.45
   },
-  "version": 8.098161815734171
+  "settings": {
+    "option1": "placeholder",
+    "option2": "myColor",
+    "option3": "myAngle"
+  },
+  "selection": [
+    {
+      "pos": [],
+      "size": [],
+      "dragOffset": [],
+      "ID": "nqq67a6mu",
+      "image": {
+        "width": 596,
+        "height": 950,
+        "canvas": {},
+        "drawingContext": {},
+        "_pixelDensity": 1,
+        "_modified": false,
+        "pixels": [],
+        "modified": true
+      },
+      "in": [],
+      "out": [],
+      "resolution": 2
+    }
+  ],
+  "author": "3lx591d2l",
+  "screens": {
+    "s7ti278ul": {
+      "pos": [],
+      "size": [],
+      "dragOffset": [],
+      "ID": "7w3zl68rs",
+      "image": {
+        "width": 596,
+        "height": 950,
+        "canvas": {},
+        "drawingContext": {},
+        "_pixelDensity": 1,
+        "_modified": false,
+        "pixels": [],
+        "modified": true
+      },
+      "in": [],
+      "out": [],
+      "resolution": 2
+    },
+    "l3g40sw0t": {
+      "pos": [],
+      "size": [],
+      "dragOffset": [],
+      "ID": "0xae39ikf",
+      "image": {
+        "width": 596,
+        "height": 950,
+        "canvas": {},
+        "drawingContext": {},
+        "_pixelDensity": 1,
+        "_modified": false,
+        "pixels": [],
+        "modified": true
+      },
+      "in": [],
+      "out": [],
+      "resolution": 2
+    },
+    "xinds5jba": {
+      "pos": [],
+      "size": [],
+      "dragOffset": [],
+      "ID": "55jxz7q26",
+      "image": {
+        "width": 596,
+        "height": 950,
+        "canvas": {},
+        "drawingContext": {},
+        "_pixelDensity": 1,
+        "_modified": false,
+        "pixels": [],
+        "modified": true
+      },
+      "in": [],
+      "out": [],
+      "resolution": 2
+    },
+    "4222fy0a0": {
+      "pos": [],
+      "size": [],
+      "dragOffset": [],
+      "ID": "wv6rgi0o1",
+      "image": {
+        "width": 596,
+        "height": 950,
+        "canvas": {},
+        "drawingContext": {},
+        "_pixelDensity": 1,
+        "_modified": false,
+        "pixels": [],
+        "modified": true
+      },
+      "in": [],
+      "out": [],
+      "resolution": 2
+    },
+    "45vfyolzg": {
+      "pos": [],
+      "size": [],
+      "dragOffset": [],
+      "ID": "d1mpys8g7",
+      "image": {
+        "width": 596,
+        "height": 950,
+        "canvas": {},
+        "drawingContext": {},
+        "_pixelDensity": 1,
+        "_modified": false,
+        "pixels": [],
+        "modified": true
+      },
+      "in": [],
+      "out": [],
+      "resolution": 2
+    },
+    "o2pft56zl": {
+      "pos": [],
+      "size": [],
+      "dragOffset": [],
+      "ID": "vc747fow6",
+      "image": {
+        "width": 596,
+        "height": 950,
+        "canvas": {},
+        "drawingContext": {},
+        "_pixelDensity": 1,
+        "_modified": false,
+        "pixels": [],
+        "modified": true
+      },
+      "in": [],
+      "out": [],
+      "resolution": 2
+    },
+    "qlv0v7kuv": {
+      "pos": [],
+      "size": [],
+      "dragOffset": [],
+      "ID": "cwhchbxn4",
+      "image": {
+        "width": 596,
+        "height": 950,
+        "canvas": {},
+        "drawingContext": {},
+        "_pixelDensity": 1,
+        "_modified": false,
+        "pixels": [],
+        "modified": true
+      },
+      "in": [],
+      "out": [],
+      "resolution": 2
+    },
+    "[object MouseEvent]": {
+      "pos": [],
+      "size": [],
+      "dragOffset": [],
+      "ID": "nqq67a6mu",
+      "image": {
+        "width": 596,
+        "height": 950,
+        "canvas": {},
+        "drawingContext": {},
+        "_pixelDensity": 1,
+        "_modified": false,
+        "pixels": [],
+        "modified": true
+      },
+      "in": [],
+      "out": [],
+      "resolution": 2
+    }
+  }
 }

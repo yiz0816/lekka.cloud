@@ -1,7 +1,11 @@
 class Layer {
-  constructor(x,y){
-    this.pos = createVector(x,y);
-    this.size = createVector();
+  constructor(x = 0,y = 0){
+    this.pos = [];
+    this.pos.x = x;
+    this.pos.y = y;
+    this.size = [];
+    this.size.w = 300;
+    this.size.h = 600;
     this.dragOffset = [];
     this.ID = createID();
   }
@@ -25,11 +29,10 @@ Layer.prototype.endDrag = function () {
   this.dragOffset.y = 0;
 };
 
-Layer.prototype.setSize = function (x,y) {
-  this.size.x = x;
-  this.size.y = y;
+Layer.prototype.setSize = function (w,h) {
+  this.size.w = w;
+  this.size.h = h;
   //console.log("set Size to: " + x + ", " + y);
-  return
 };
 
 Layer.prototype.renderSelection = function () {

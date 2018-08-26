@@ -1,9 +1,10 @@
 class Scene {
   constructor() {
     this.mode = "clicking";
-    this.offset = createVector();;
-    this.dragOffset = createVector();;
-    this.mappedMouse = createVector();
+    this.createNoP5Vector("offset",500,500);
+    this.createNoP5Vector("dragOffset");
+    this.createNoP5Vector("mappedMouse");
+    this.random = 65.45;
   }
 }
 
@@ -32,6 +33,12 @@ Scene.prototype.whileDragging = function () {
   } else {
     this.stopDragging();
   }
+};
+
+Scene.prototype.createNoP5Vector = function (name, x = 0, y = 0, z = 0) {
+  //console.log(this);
+  this[name] = createVector(x,y,z);
+  delete this[name].p5;
 };
 
 Scene.prototype.startDragging = function () {

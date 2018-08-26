@@ -1,9 +1,9 @@
 class Screen extends Layer{
-    constructor(x, y){
+    constructor(id = createID(), x = 0, y = 0){
       super();
-      this.pos.x = x || 0;
-      this.pos.y = y || 0;
       this.image = loadImage('img/placeholder.jpg', () => this.initialise());
+      this.pos.x = y;
+      this.pos.y = y;
       this.in = [];
       this.in.pos = [];
       this.in.connections = []
@@ -11,7 +11,8 @@ class Screen extends Layer{
       this.out.pos = []
       this.out.connections = [];
       this.resolution = 2;
-      console.log("New screen generated: " + this.ID);
+     // console.log("New screen generated: " + this.ID);
+     this.initialise();
     }
   }
 
@@ -36,6 +37,7 @@ Screen.prototype.draw = function () {
 Screen.prototype.initialise = function () {
   this.setLocalPorts();
   this.updateSize();
+  doc.screens[this.ID] = this;
 };
 
 Screen.prototype.setResolution = function (x) {
@@ -109,20 +111,16 @@ Screen.prototype.drawLine = function (x1,y1,x2,y2) {
 };
 
 Screen.prototype.clicked = function () {
-  if (sc.mappedMouse.x > this.pos.x && sc.mappedMouse.x < this.pos.x + this.size.x && sc.mappedMouse.y > this.pos.y && sc.mappedMouse.y < this.pos.y + this.size.y){
+  //console.log(this.pos.x);
+  //console.log(sc.mappedMouse.x + " - " + mouseX);
+
+  if (sc.mappedMouse.x > this.pos.x 
+    && sc.mappedMouse.x < this.pos.x + this.size.w 
+    && sc.mappedMouse.y > this.pos.y 
+    && sc.mappedMouse.y < this.pos.y + this.size.h)
+    {
     return true
   } else {
     return false;
   }
-}
-
-function createNewScreen(){
-  screens.push( new Screen());
-}
-
-function createNewScreen2(x,y){
-  var id = createID()
-  screens[id] = new Screen();
-  screens[id].setPositionX(x);
-  screens[id].setPositionY(y);
 }

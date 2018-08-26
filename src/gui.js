@@ -22,5 +22,5 @@ function createAddScreenButton(){
   addScreenButtomn.style("text-align", "center");
   addScreenButtomn.style("line-height", "80px");
   addScreenButtomn.style("user-select", "none");
-  addScreenButtomn.mouseClicked(createNewScreen);
+  addScreenButtomn.mouseClicked(function(){new Screen()});
 } 

@@ -2,75 +2,14 @@ class Document {
   constructor() {
     this.scene = new Scene();
     this.settings = { "option1": "placeholder", "option2": "myColor", "option3": "myAngle" };
-    this.version = random(10);
-    this.screens = [];
+    this.screens = {};
     this.selection = [];
     this.canvas = function () { createCanvas(windowWidth, windowHeight) };
   }
 }
 
 Document.prototype.save = function () {
-  var file = {};
-
-  file.settings = {};
-  for (var key in doc.settings) {
-    // skip loop if the property is from prototype
-    if (!doc.settings.hasOwnProperty(key)) continue;
-    file.settings[key] = doc.settings[key];
-  }
-
-  file.version = doc.version;
-
-  file.scene = {};
-  for (var key in doc.scene) {
-
-    // skip loop if the property is from prototype
-    if (doc.scene.hasOwnProperty(key)) {
-
-      // Write String files to data file
-      if (typeof doc.scene[key] === "string") {
-        file.scene[key] = doc.scene[key];
-      } else {
-        // Create object to store next nevel hierachy
-        file.scene[key] = {};
-      }
-
-      // One level deeper
-      for (var subkey in doc.scene[key]) {
-        if (doc.scene[key].hasOwnProperty(subkey)) {
-
-          // Create Object to store values
-          if (typeof doc.scene[key][subkey] === "number") {
-            file.scene[key][subkey] = doc.scene[key][subkey];
-          }
-        }
-      }
-    }
-  }
-
-  file.screens = {};
-  for (var key in doc.screens) {
-
-    // skip loop if the property is from prototype
-    if (doc.screens.hasOwnProperty(key)) {
-
-      // Create object to store next nevel hierachy
-      file.screens[key] = {};
-
-      // One level deeper
-      for (var subkey in doc.screens[key]) {
-        if (doc.screens[key].hasOwnProperty(subkey)) {
-
-          // Create Object to store values
-          file.screens[key][subkey] = doc.screens[key][subkey];
-        }
-      }
-    }
-  }
-
-
-  console.log(file);
-  saveJSON(file, "config.json");
+  saveJSON(doc, "config.json");
 };
 
 Document.prototype.loadFile = function () {
@@ -81,21 +20,14 @@ Document.prototype.loadFile = function () {
 
 
 Document.prototype.jsonLoaded = function (uri) {
-  //console.log(uri);
+  console.log(uri);
   var name = uri.split("/");
   name = name[name.length - 1];
-  console.log("" + name + "' loaded");
-  console.log("File contains: " + json);
-  this.updateFile();
+  console.log(name + "' loaded");
 }
 
 Document.prototype.updateFile = function () {
   console.log("updating sceen");
-
-  if (typeof json === "undefined") {
-    console.log("error");
-    break;
-  }
 
   //Map values
   this.version = json.version;
@@ -111,5 +43,48 @@ Document.prototype.updateFile = function () {
     // skip loop if the property is from prototype
     if (!json.scene.hasOwnProperty(key)) continue;
     this.scene[key] = json.scene[key];
+  }
+
+  delete doc.screens;
+  doc.screens = {};
+
+  for (var key in json.screens) {
+    new Screen(json.screens[key].ID, json.screens[key].pos.x, json.screens[key].pos.y);
+    //doc.screens[key].note = json.screens[key].ID;
+    //console.log(json.screens[key].pos.x + " - " + json.screens[key].pos.y);
+  }
+
+  //console.log(doc.screens = Object.assign(doc.screens, json.screens))
+  console.log("finished updating");
+}
+
+function eachRecursive3(obj) {
+  //console.log("Start recusrion");
+  //console.log(test2);
+  //console.log("count: " + count);
+
+  for (var k in obj) {
+    if (obj[k] !== null && obj.hasOwnProperty(k)) {
+      //console.log(typeof obj[k]);
+      //console.log(obj[k]);
+
+      if (obj.hasOwnProperty("p5")) {
+        // console.log("P5 element found");
+        delete screens[obj].p5;
+        //console.log(obj);
+
+      } else if (typeof obj[k] === "string" || typeof obj === "number") {
+        //console.log(obj);
+        console.log("write value:  " + obj);
+        //test2[k] = obj[k];
+
+      } else if (typeof obj === "object" && !obj.hasOwnProperty("p5") || !obj.hasOwnProperty("image")) {
+        //console.log("Object found: Start new Recursions");
+        // console.log("Assign:"  + obj[k].constructor.name + " to " + test2[k] );
+        test2[k] = obj[k];
+        count++
+        eachRecursive3(obj[k]);
+      }
+    }
   }
 }

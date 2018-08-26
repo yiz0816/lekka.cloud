@@ -1,16 +1,19 @@
-var sc, data, gui, data, json, screens;
+var sc, gui, json, screens, data2 = {};
+var test2 = {};
+var count = 0;
 
 function setup() {
   doc = new Document();
   sc = doc.scene;
   screens = doc.screens;
   createSubColors();
+  frameRate(60);
 
 
-  createNewScreen2(random(-50, 50), random(-50, 50));
-  createNewScreen2(random(-50, 50), random(-50, 50));
-  createNewScreen2(random(-50, 50), random(-50, 50));
-  createNewScreen2(random(-50, 50), random(-50, 50));
+  //createNewScreen(random(-50, 50), random(-50, 50));
+  //createNewScreen(random(-50, 50), random(-50, 50));
+  //createNewScreen2(random(-50, 50), random(-50, 50));
+  //createNewScreen2(random(-50, 50), random(-50, 50));
 
   /*screens.push(screen1 = new Screen(500,300));
   screens.push(screen2 = new Screen());
@@ -49,11 +52,10 @@ function draw() {
   backgroundGrid()
 
 
-  for (var key in screens) {
-    // skip loop if the property is from prototype
-    if (!screens.hasOwnProperty(key)) continue;
-    screens[key].draw();
-    screens[key].drawConnection();
+  for (var key in doc.screens) {
+    doc.screens[key].draw();
+    doc.screens[key].drawConnection();
+    //console.log(key + " at " + screens[key].pos.x)
   }
 
   doc.selection.forEach(function (item) {
@@ -71,13 +73,14 @@ function draw() {
 
 function mousePressed() {
   doc.selection = [];
-  for (var key in screens) {
+  for (var key in doc.screens) {
     // skip loop if the property is from prototype
-    if (screens.hasOwnProperty(key)) {
-      if (screens[key].clicked()) {
+    if (doc.screens.hasOwnProperty(key)) {
+      if (doc.screens[key].clicked()) {
         //console.log("clicked");
-        doc.selection.push(screens[key]);
-        screens[key].startDrag();
+        doc.selection.push(doc.screens[key]);
+        doc.screens[key].startDrag();
+        break;
       }
     }
   }
