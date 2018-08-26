@@ -1,13 +1,13 @@
 class Layer {
-  constructor(x = 0,y = 0){
-    this.pos = [];
+  constructor(x = 0,y = 0, id = createID()){
+    this.pos = {};
     this.pos.x = x;
     this.pos.y = y;
-    this.size = [];
+    this.size = {};
     this.size.w = 300;
     this.size.h = 600;
     this.dragOffset = [];
-    this.ID = createID();
+    this.ID = id;
   }
 }
 

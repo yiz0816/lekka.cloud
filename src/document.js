@@ -49,7 +49,8 @@ Document.prototype.updateFile = function () {
   doc.screens = {};
 
   for (var key in json.screens) {
-    new Screen(json.screens[key].ID, json.screens[key].pos.x, json.screens[key].pos.y);
+    console.log(json.screens[key].ID);
+    new Screen(json.screens[key].pos.x, json.screens[key].pos.y, json.screens[key].ID);
     //doc.screens[key].note = json.screens[key].ID;
     //console.log(json.screens[key].pos.x + " - " + json.screens[key].pos.y);
   }

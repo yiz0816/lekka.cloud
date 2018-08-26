@@ -1,8 +1,8 @@
 class Screen extends Layer{
-    constructor(id = createID(), x = 0, y = 0){
+    constructor(x = 0, y = 0, id = createID()){
       super();
       this.image = loadImage('img/placeholder.jpg', () => this.initialise());
-      this.pos.x = y;
+      this.pos.x = x;
       this.pos.y = y;
       this.in = [];
       this.in.pos = [];
@@ -11,6 +11,7 @@ class Screen extends Layer{
       this.out.pos = []
       this.out.connections = [];
       this.resolution = 2;
+      this.ID = id;
      // console.log("New screen generated: " + this.ID);
      this.initialise();
     }

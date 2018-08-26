@@ -12,8 +12,8 @@
       "z": 0
     },
     "mappedMouse": {
-      "x": 626,
-      "y": 621,
+      "x": 474,
+      "y": 233.5,
       "z": 0
     },
     "random": 65.45
@@ -23,34 +23,19 @@
     "option2": "myColor",
     "option3": "myAngle"
   },
-  "selection": [
-    {
-      "pos": [],
-      "size": [],
-      "dragOffset": [],
-      "ID": "nqq67a6mu",
-      "image": {
-        "width": 596,
-        "height": 950,
-        "canvas": {},
-        "drawingContext": {},
-        "_pixelDensity": 1,
-        "_modified": false,
-        "pixels": [],
-        "modified": true
-      },
-      "in": [],
-      "out": [],
-      "resolution": 2
-    }
-  ],
-  "author": "3lx591d2l",
+  "selection": [],
   "screens": {
-    "s7ti278ul": {
-      "pos": [],
-      "size": [],
+    "hia5bxrs1": {
+      "pos": {
+        "x": -88,
+        "y": -561
+      },
+      "size": {
+        "w": 298,
+        "h": 475
+      },
       "dragOffset": [],
-      "ID": "7w3zl68rs",
+      "ID": "hia5bxrs1",
       "image": {
         "width": 596,
         "height": 950,
@@ -65,11 +50,17 @@
       "out": [],
       "resolution": 2
     },
-    "l3g40sw0t": {
-      "pos": [],
-      "size": [],
+    "lztr1h8hs": {
+      "pos": {
+        "x": -275,
+        "y": -320
+      },
+      "size": {
+        "w": 298,
+        "h": 475
+      },
       "dragOffset": [],
-      "ID": "0xae39ikf",
+      "ID": "lztr1h8hs",
       "image": {
         "width": 596,
         "height": 950,
@@ -84,11 +75,17 @@
       "out": [],
       "resolution": 2
     },
-    "xinds5jba": {
-      "pos": [],
-      "size": [],
+    "47zccv3xz": {
+      "pos": {
+        "x": -53,
+        "y": -225
+      },
+      "size": {
+        "w": 298,
+        "h": 475
+      },
       "dragOffset": [],
-      "ID": "55jxz7q26",
+      "ID": "47zccv3xz",
       "image": {
         "width": 596,
         "height": 950,
@@ -103,11 +100,17 @@
       "out": [],
       "resolution": 2
     },
-    "4222fy0a0": {
-      "pos": [],
-      "size": [],
+    "zjpkoukq4": {
+      "pos": {
+        "x": -234,
+        "y": -159
+      },
+      "size": {
+        "w": 298,
+        "h": 475
+      },
       "dragOffset": [],
-      "ID": "wv6rgi0o1",
+      "ID": "zjpkoukq4",
       "image": {
         "width": 596,
         "height": 950,
@@ -122,11 +125,17 @@
       "out": [],
       "resolution": 2
     },
-    "45vfyolzg": {
-      "pos": [],
-      "size": [],
+    "zsz1ic7io": {
+      "pos": {
+        "x": -446,
+        "y": -356
+      },
+      "size": {
+        "w": 298,
+        "h": 475
+      },
       "dragOffset": [],
-      "ID": "d1mpys8g7",
+      "ID": "zsz1ic7io",
       "image": {
         "width": 596,
         "height": 950,
@@ -141,11 +150,17 @@
       "out": [],
       "resolution": 2
     },
-    "o2pft56zl": {
-      "pos": [],
-      "size": [],
+    "beypkvsau": {
+      "pos": {
+        "x": -235,
+        "y": -424
+      },
+      "size": {
+        "w": 298,
+        "h": 475
+      },
       "dragOffset": [],
-      "ID": "vc747fow6",
+      "ID": "beypkvsau",
       "image": {
         "width": 596,
         "height": 950,
@@ -160,11 +175,17 @@
       "out": [],
       "resolution": 2
     },
-    "qlv0v7kuv": {
-      "pos": [],
-      "size": [],
+    "m65q8wzus": {
+      "pos": {
+        "x": -238,
+        "y": -380
+      },
+      "size": {
+        "w": 298,
+        "h": 475
+      },
       "dragOffset": [],
-      "ID": "cwhchbxn4",
+      "ID": "m65q8wzus",
       "image": {
         "width": 596,
         "height": 950,
@@ -179,11 +200,17 @@
       "out": [],
       "resolution": 2
     },
-    "[object MouseEvent]": {
-      "pos": [],
-      "size": [],
+    "73pmrigc1": {
+      "pos": {
+        "x": -1,
+        "y": -419
+      },
+      "size": {
+        "w": 298,
+        "h": 475
+      },
       "dragOffset": [],
-      "ID": "nqq67a6mu",
+      "ID": "73pmrigc1",
       "image": {
         "width": 596,
         "height": 950,

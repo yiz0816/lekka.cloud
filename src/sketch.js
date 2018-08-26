@@ -1,11 +1,10 @@
-var sc, gui, json, screens, data2 = {};
+var sc, gui, json;
 var test2 = {};
 var count = 0;
 
 function setup() {
   doc = new Document();
   sc = doc.scene;
-  screens = doc.screens;
   createSubColors();
   frameRate(60);
 
