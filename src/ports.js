@@ -2,7 +2,7 @@ class Port extends Layer {
     constructor(parent) {
         super();
         //console.log("new Port genrated");
-        this.ID = parent.ID;
+        this.ID = createID();
         this.parent = parent;
         this.defaultPosition();
     }
@@ -42,7 +42,6 @@ Port.prototype.defaultPosition = function () {
 }
 
 Port.prototype.drawConncetion = function (x2, y2) {
-    doc.scene.mode = "connect";
     this.dragOffset.x = x2;
     this.dragOffset.y = y2;
     var startP = [];

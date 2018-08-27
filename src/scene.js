@@ -16,7 +16,8 @@ Scene.prototype.mapMouse = function () {
 Scene.prototype.stopDragging = function () {
   this.dragOffset.x = 0;
   this.dragOffset.y = 0;
-  this.mode = "clicking";
+  //this.mode = "clicking";
+  //console.log("scene enter clicking mode");
 };
 
 Scene.prototype.isDragging = function () {

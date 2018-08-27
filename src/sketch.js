@@ -1,6 +1,4 @@
 var sc, gui, json;
-var test2 = {};
-var count = 0;
 
 function setup() {
   doc = new Document();
@@ -28,18 +26,26 @@ function draw() {
   translate(sc.offset.x, sc.offset.y);
   backgroundGrid();
   sc.mapMouse();
+  //console.log(doc.scene.mode);
 
   // Render Screens and Connection
   for (var key in doc.screens) {
     doc.screens[key].draw();
     doc.ports[key].draw();
+    for (var i in doc.screens[key].out.connections) {
+      //console.log("connected to " + doc.screens[key].out.connections[i].ID);
+      doc.ports[key].drawConncetion(doc.screens[key].out.connections[i].pos.x + doc.scene.offset.x, doc.screens[key].out.connections[i].pos.y + doc.scene.offset.y + doc.screens[key].size.h / 2);
+    }
+
     //doc.screens[key].drawConnection();
   }
 
   // Render Selection
   if (doc.selection.length > 0) {
     for (var key in doc.selection) {
-      doc.selection[key].renderSelection();
+      if (doc.selection[key].constructor.name === "Screen") {
+        doc.selection[key].renderSelection();
+      }
     }
   }
 
@@ -70,11 +76,8 @@ function draw() {
     }
   }
   for (var i in doc.screens) {
-    if(doc.screens[i].isMouseOver()){
-      //console.log(doc.screens[i].ID);
-      //console.log(doc.scene.mappedMouse.x);
+    if (doc.screens[i].isMouseOver()) {
     }
-    //console.log(doc.screens[i].isMouseOver());
   }
 }
 
@@ -89,6 +92,12 @@ function mousePressed() {
         doc.screens[key].startDrag();
         break;
       }
+    }
+  }
+
+  for (var k in doc.ports) {
+    if (doc.ports[k].isMouseOver()) {
+      doc.selection.push(doc.ports[k]);
     }
   }
 }
@@ -108,41 +117,43 @@ function keyPressed() {
 
 function mouseReleased() {
   for (var key in doc.selection) {
-    doc.selection[key].endDrag();
-    doc.selection[key].updatePort();
-    //doc.ports[key].endDrag();
-  }
-
-  if (doc.scene.mode == "connect") {
-    for (var k in doc.ports) {
-      for (var i in doc.screens) {
-        console.log(doc.screens[i]);
-        if (doc.screens[i].isMouseOver()) {
-          console.log("hit target");
-          doc.ports[k].connectTo(doc.screens[i]);
+    if (doc.selection[key].constructor.name === "Screen") {
+      doc.selection[key].endDrag();
+      doc.selection[key].updatePort();
+      doc.selection[key].renderInformation();
+    } else if (doc.selection[key].constructor.name === "Port") {
+      if (doc.scene.mode == "connect") {
+        for (var i in doc.screens) {
+          if (doc.screens[i].isMouseOver()) {
+            doc.selection[key].connectTo(doc.screens[i]);
+          }
         }
       }
     }
   }
+  doc.scene.mode = "clicking";
 }
 
 
 function mouseDragged() {
-  sc.whileDragging();
+  doc.scene.whileDragging();
 
-  if (doc.scene.mode == "clicking") {
+  if (doc.scene.mode == "moveLayer") {
     for (var key in doc.selection) {
       doc.selection[key].whileDrag();
       //doc.ports[key].whileDrag();
     }
   }
 
-  //for (var k in doc.)
-  /* if (doc.selection.length > 0 && sc.mode == "clicking") {
-     doc.selection.forEach(function (item) {
-       item.whileDrag();
-     })
-   }*/
+  for (var k in doc.ports) {
+    if (doc.ports[k].isMouseOver()) {
+      doc.ports[k].renderHighlight();
+      if (mouseIsPressed) {
+        doc.scene.mode = "connect";
+        doc.ports[k].drawConncetion(mouseX, mouseY);
+      }
+    }
+  }
 }
 
 function keyReleased() {

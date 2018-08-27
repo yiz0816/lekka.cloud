@@ -8,6 +8,14 @@ class Layer {
     this.size.h = 600;
     this.dragOffset = [];
     this.ID = id;
+    this.attributes = {};
+    //this.attributes.general.data 
+    //this.attributes.general.data.created = int(random(1, 20)) + " days ago";
+    //this.attributes.general.lastEditor = randomNames[int(random(randomNames.length))];
+    this.addAttribute("Translation", "key3", "Guten Tag");
+    this.addAttribute("hidden", "created", int(random(1, 20)) + " days ago");
+    this.addAttribute("hidden", "lastEditor", randomNames[int(random(randomNames.length))]);
+
   }
 }
 
@@ -15,6 +23,7 @@ Layer.prototype.startDrag = function () {
   this.dragOffset.x = mouseX - this.pos.x;
   this.dragOffset.y = mouseY - this.pos.y;
   //console.log ("Start dragging layer from: " + this.dragOffset.x + ", " + this.dragOffset.y);
+  doc.scene.mode = "moveLayer";
 };
 
 Layer.prototype.whileDrag = function () {
@@ -28,6 +37,8 @@ Layer.prototype.endDrag = function () {
   this.dragOffset.x = 0;
   this.dragOffset.y = 0;
   //console.log("Stopped dragging: " + this.pos.x + ", " + this.pos.y);
+  doc.scene.mode = "clicking";
+  console.log("set mode to clicking");
 };
 
 Layer.prototype.setSize = function (w, h) {
@@ -58,14 +69,47 @@ Layer.prototype.isMouseOver = function () {
     && sc.mappedMouse.x < this.pos.x + this.size.w
     && sc.mappedMouse.y > this.pos.y
     && sc.mappedMouse.y < this.pos.y + this.size.h) {
-      
+
     return true
   } else {
     return false;
+  }
+}
+Layer.prototype.addAttribute = function (category, key, value) {
+  if (typeof this.attributes[category] === "undefined") {
+    this.attributes[category] = {};
+    this.attributes[category].data = {};
+    this.attributes[category].categoryName = category;
+  }
+  this.attributes[category].data[key] = value;
+}
+
+Layer.prototype.renderInformation = function () {
+  gui.ap.html("<h1>" + this.ID + "</h1>");
+  gui.ap.html("<p class='small'><span class='light'>Created </span>" + this.attributes.hidden.data.created + "<span class=' light'> by </span><a href='#'>" + this.attributes.hidden.data.lastEditor + "</a></p>", true);
+  gui.ap.html("<hr>", true);
+  for (var k in this.attributes) {
+    if (this.attributes[k].categoryName !== "hidden") {
+      gui.ap.html("<h3>" + this.attributes[k].categoryName + "</h3>", true);
+      for (var i in this.attributes[k].data) {
+        console.log(i)
+        gui.ap.html("<p class='attribute'><span class='attributeName'>" + i + "</span><span class='attributeValue'>" + this.attributes[k].data[i] + "</span></p>", true);
+      }
+    }
   }
 }
 
 var createID = function () {
   var id = Math.random().toString(36).substr(2, 9);
   return id
+}
+
+var randomNames = ["Jane Marry", "Peter Johnson", "Philip Mattha"];
+var randomAttributeCategories = ["Translation", "Testing", "Design", "Annotations"];
+var translationAttribute = {
+  "type": "list",
+  "data": {
+    "key1": "Hello",
+    "key2": "bye"
+  }
 }
