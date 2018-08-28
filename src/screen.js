@@ -9,7 +9,7 @@ class Screen extends Layer {
     this.in.connections = {};
     this.out = {};
     this.out.pos = []
-    this.out.connections = [];
+    this.out.connections = {};
     this.resolution = 2;
     this.ID = id;
   }
@@ -45,6 +45,11 @@ Screen.prototype.setResolution = function (x) {
   this.updateSize();
 };
 
+Screen.prototype.updateImage = function (file) {
+  console.log(file)
+  this.resolution = x;
+  this.updateSize();
+};
 /*Screen.prototype.setLocalPorts = function () {
   this.in.pos.x = this.pos.x;
   this.in.pos.y = this.image.height / 2 / this.resolution + this.pos.y;

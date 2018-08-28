@@ -7,7 +7,7 @@ function setup() {
   createSubColors();
   frameRate(60);
 
-  //doc.canvas = createCanvas(windowWidth, windowHeight);
+  createCanvas(windowWidth, windowHeight).drop(doc.loadBase64File);
   resizeCanvas(windowWidth, windowHeight);
   loadGUI();
 
@@ -16,7 +16,16 @@ function setup() {
   console.log("Press `L` to load a config.json file.")
 
   // Floating Interface Elements
-  createAddScreenButton();
+
+  if (doc.settings.autoload == true) {
+    try {
+      doc.loadFile();
+      setTimeout(function() {doc.updateFile(); }, 500);
+    }
+    catch (err) {
+      console.log(err);
+    }
+  }
 }
 
 function draw() {

@@ -34,7 +34,7 @@ var createShadeFromRGB = function(color, alpha){
     a = 1 * alpha; 
   }
 
-  var result = console.log("Created a sub color of " + color + " with the new value: rgba(" + r[1] + "," + g + "," + b[0] + ",0." + a + ")");  
+  //var result = console.log("Created a sub color of " + color + " with the new value: rgba(" + r[1] + "," + g + "," + b[0] + ",0." + a + ")");  
   
   return "rgba(" + r[1] + "," + g + "," + b[0] + ",0." + a + ")";
 };

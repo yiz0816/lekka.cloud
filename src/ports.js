@@ -2,7 +2,7 @@ class Port extends Layer {
     constructor(parent) {
         super();
         //console.log("new Port genrated");
-        this.ID = createID();
+        this.ID = "test" //parent.ID
         this.parent = parent;
         this.defaultPosition();
     }
@@ -69,7 +69,7 @@ Port.prototype.drawConncetion = function (x2, y2) {
 };
 
 Port.prototype.connectTo = function(target){
-    this.parent.out.connections[target] = target;
-    console.log(this.ID + " is connected to " + target.ID)
+    this.parent.out.connections[target.ID] = target;
+    console.log("Port " + this.ID + " is connected to Screen " + target.ID)
     return true;
 }
