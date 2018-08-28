@@ -1,8 +1,7 @@
 class Port extends Layer {
     constructor(parent) {
         super();
-        //console.log("new Port genrated");
-        this.ID = "test" //parent.ID
+        this.ID = parent.ID
         this.parent = parent;
         this.defaultPosition();
     }
@@ -40,35 +39,38 @@ Port.prototype.defaultPosition = function () {
     this.size.w = 40;
     this.size.h = 80;
 }
+Port.prototype.drawLine = function (x1, y1, x2, y2) {
+    this.startP = [];
+    this.startP.x = x1;
+    this.startP.y = y1;
+    this.endP = [];
+    this.endP.x = x2;
+    this.endP.y = y2;
+    this.siz = [];
+    this.siz.x = abs(x1 - x2);
+    this.siz.y = abs(y1 - y2);
+    this.overshoot = this.siz.x / 2;
 
-Port.prototype.drawConncetion = function (x2, y2) {
-    this.dragOffset.x = x2;
-    this.dragOffset.y = y2;
-    var startP = [];
-    startP.x = this.pos.x + this.size.w / 2;
-    startP.y = this.pos.y + this.size.h / 2;
-    var endP = [];
-    endP.x = x2 - doc.scene.offset.x;
-    endP.y = y2 - doc.scene.offset.y;
-    var siz = [];
-    siz.x = abs(startP.x - endP.x);
-    siz.y = abs(startP.y - endP.y);
-    let overshoot = siz.x / 2;
-
-    stroke(colors.highlight40);
+    stroke(colors.highlight80);
     strokeWeight(3);
     noFill();
     bezier(
-        startP.x, startP.y,               // Point 1
-        startP.x + overshoot, startP.y,           // Point 2
-        endP.x - overshoot, endP.y,             // Point 3
-        endP.x, endP.y                    // Point 4
+        this.startP.x + doc.scene.offset.x + this.size.w/2, this.startP.y + doc.scene.offset.y + this.size.h/2,               // Point 1
+        this.startP.x + this.overshoot + doc.scene.offset.x + this.size.w/2, this.startP.y + doc.scene.offset.y + this.size.h/2,           // Point 2
+        this.endP.x - this.overshoot + doc.scene.offset.x, this.endP.y + doc.scene.offset.y,             // Point 3
+        this.endP.x + doc.scene.offset.x, this.endP.y + doc.scene.offset.y                    // Point 4
     );
-    noStroke()
-    fill(0);
+}
+
+Port.prototype.drawTempLine = function () {
+    this.drawLine(this.pos.x, this.pos.y, mouseX, mouseY);
+}
+
+Port.prototype.drawConnection = function (x2, y2) {
+    this.drawLine(this.pos.x, this.pos.y, x2, y2);
 };
 
-Port.prototype.connectTo = function(target){
+Port.prototype.connectTo = function (target) {
     this.parent.out.connections[target.ID] = target;
     console.log("Port " + this.ID + " is connected to Screen " + target.ID)
     return true;

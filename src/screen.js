@@ -5,10 +5,8 @@ class Screen extends Layer {
     this.pos.x = x;
     this.pos.y = y;
     this.in = [];
-    this.in.pos = [];
     this.in.connections = {};
     this.out = {};
-    this.out.pos = []
     this.out.connections = {};
     this.resolution = 2;
     this.ID = id;
@@ -36,7 +34,7 @@ Screen.prototype.initialiseScreen = function () {
   this.updateSize();
   doc.screens[this.ID] = this;
   //console.log(this);
-  createOutgoingPort(this, "test");
+  this.createOutgoingPort();
   this.updatePort();
 };
 
@@ -114,5 +112,9 @@ Screen.prototype.drawConncetion = function (x1, y1, x2, y2) {
 };
 
 Screen.prototype.updatePort = function () {
-  doc.ports[this.ID].defaultPosition();
+  this.out.port.defaultPosition();
+}
+
+Screen.prototype.createOutgoingPort = function () {
+  this.out.port = new Port(this);
 }

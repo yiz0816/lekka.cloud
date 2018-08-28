@@ -23,10 +23,11 @@ Layer.prototype.startDrag = function () {
   this.dragOffset.x = mouseX - this.pos.x;
   this.dragOffset.y = mouseY - this.pos.y;
   //console.log ("Start dragging layer from: " + this.dragOffset.x + ", " + this.dragOffset.y);
-  doc.scene.mode = "moveLayer";
+  //doc.scene.setMode("moveLayer");
 };
 
 Layer.prototype.whileDrag = function () {
+  doc.scene.setMode("moveLayer");
   this.pos.x = mouseX - this.dragOffset.x;
   this.pos.y = mouseY - this.dragOffset.y;
   //console.log("dragging layer to: " + this.pos.x + ", " + this.pos.y);
@@ -36,9 +37,7 @@ Layer.prototype.whileDrag = function () {
 Layer.prototype.endDrag = function () {
   this.dragOffset.x = 0;
   this.dragOffset.y = 0;
-  //console.log("Stopped dragging: " + this.pos.x + ", " + this.pos.y);
-  doc.scene.mode = "clicking";
-  console.log("set mode to clicking");
+  doc.scene.setMode("clicking");
 };
 
 Layer.prototype.setSize = function (w, h) {
@@ -92,7 +91,6 @@ Layer.prototype.renderInformation = function () {
     if (this.attributes[k].categoryName !== "hidden") {
       gui.ap.html("<h3>" + this.attributes[k].categoryName + "</h3>", true);
       for (var i in this.attributes[k].data) {
-        console.log(i)
         gui.ap.html("<p class='attribute'><span class='attributeName'>" + i + "</span><span class='attributeValue'>" + this.attributes[k].data[i] + "</span></p>", true);
       }
     }
