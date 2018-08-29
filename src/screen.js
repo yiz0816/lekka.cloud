@@ -64,8 +64,8 @@ Screen.prototype.updateImage = function (file) {
   }
 };*/
 Screen.prototype.connectTo = function (target) {
-  this.out.connections.push(target);
-  target.in.connections.push(this);
+  //this.out.connections.push(target.ID);
+  //target.in.connections.push(this.ID);
 };
 
 /*Screen.prototype.setPositionX = function (x) {

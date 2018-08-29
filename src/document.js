@@ -85,9 +85,19 @@ Document.prototype.updateFile = function () {
   doc.screens = {};
 
   for (var k in json.screens) {
-    new Screen(json.screens[k].pos.x, json.screens[k].pos.y, json.screens[k].ID);
+    var t = new Screen(json.screens[k].pos.x, json.screens[k].pos.y, json.screens[k].ID);
+    //console.log(json.screens[k]);
+    console.log(t);
+    for (var i in json.screens[k].out.connections) {
+      console.log(i);
+      t.createOutgoingPort(t);
+      console.log(json.screens[k].out.connections[i]);
+      console.log(t.connections);
+     //  t.connections[i] = json.screens[k].out.connections[i]
+    }
+    //createOutgoingPort
   }
 
-  
+
   console.log("finished updating");
 }

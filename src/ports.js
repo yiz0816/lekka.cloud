@@ -1,8 +1,9 @@
 class Port extends Layer {
     constructor(parent) {
         super();
-        this.ID = parent.ID
-        this.parent = parent;
+        //this.ID = parent.ID
+        //this.parent = parent;
+        this.parentID = parent.ID
         this.defaultPosition();
     }
 }
@@ -10,7 +11,9 @@ class Port extends Layer {
 Port.prototype.draw = function () {
     noStroke();
     fill(colors.highlight20);
-    ellipse(this.parent.pos.x + this.parent.size.w, this.parent.pos.y + this.parent.size.h / 2, 16, 16);
+    var p = doc.screens[this.parentID];
+    //console.log(parent);
+    ellipse(p.pos.x + p.size.w, p.pos.y + p.size.h / 2, 16, 16);
 
     //strokeWeight(1)
     //noFill();
@@ -34,10 +37,19 @@ Port.prototype.setPosition = function (x, y) {
 }
 
 Port.prototype.defaultPosition = function () {
-    this.pos.x = this.parent.pos.x + this.parent.size.w - 20;
-    this.pos.y = this.parent.pos.y + this.parent.size.h / 2 - 40;
-    this.size.w = 40;
-    this.size.h = 80;
+    setTimeout(function () {
+        var p = doc.screens[this.parentID];
+        console.log(doc.screens[this.parentID]);
+        console.log(p);
+        console.log(this.parentID);
+        console.log(getScreenByID(this.parentID));
+        var p = getScreenByID(this.parentID);
+
+        this.pos.x = p.pos.x + p.size.w - 20;
+        this.pos.y = p.pos.y + p.size.h / 2 - 40;
+        this.size.w = 40;
+        this.size.h = 80;
+    }, 500);
 }
 Port.prototype.drawLine = function (x1, y1, x2, y2) {
     this.startP = [];
@@ -55,10 +67,10 @@ Port.prototype.drawLine = function (x1, y1, x2, y2) {
     strokeWeight(3);
     noFill();
     bezier(
-        this.startP.x + doc.scene.offset.x + this.size.w/2, this.startP.y + doc.scene.offset.y + this.size.h/2,               // Point 1
-        this.startP.x + this.overshoot + doc.scene.offset.x + this.size.w/2, this.startP.y + doc.scene.offset.y + this.size.h/2,           // Point 2
-        this.endP.x - this.overshoot + doc.scene.offset.x, this.endP.y + doc.scene.offset.y,             // Point 3
-        this.endP.x + doc.scene.offset.x, this.endP.y + doc.scene.offset.y                    // Point 4
+        this.startP.x + doc.scene.offset.x + this.size.w / 2, this.startP.y + doc.scene.offset.y + this.size.h / 2,                         // Point 1
+        this.startP.x + this.overshoot + doc.scene.offset.x + this.size.w / 2, this.startP.y + doc.scene.offset.y + this.size.h / 2,        // Point 2
+        this.endP.x - this.overshoot + doc.scene.offset.x, this.endP.y + doc.scene.offset.y,                                            // Point 3
+        this.endP.x + doc.scene.offset.x, this.endP.y + doc.scene.offset.y                                                              // Point 4
     );
 }
 
@@ -71,7 +83,23 @@ Port.prototype.drawConnection = function (x2, y2) {
 };
 
 Port.prototype.connectTo = function (target) {
-    this.parent.out.connections[target.ID] = target;
+    var p = doc.screens[this.parentID];
+
+    p.out.connections[target.ID] = target.ID;
     console.log("Port " + this.ID + " is connected to Screen " + target.ID)
     return true;
+}
+
+getScreenByID = function (id) {
+    console.log("get ID by screen");
+    console.log(id)
+    var result = "no screen found";
+    for (var k in doc.screens) {
+        console.log(doc.screens[k].ID)
+        if (id === doc.screens[k].ID) {
+            consolelog(doc.screens[k]);
+            result = doc.screens[k].ID;
+        }
+    }
+    return result
 }
