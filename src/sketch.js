@@ -42,9 +42,14 @@ function draw() {
     doc.screens[key].draw();
     doc.screens[key].out.port.draw();
     //console.log(doc.screens[key]);
-    for (var i in doc.screens[key].out.connections){
+    for (var i in doc.screens[key].out.connections) {
       //console.log(doc.screens[key].out.connections[i]);
-      doc.screens[key].out.port.drawConnection(doc.screens[key].out.connections[i].pos.x, doc.screens[key].out.connections[i].pos.y + doc.screens[key].out.connections[i].size.h/2);
+      //console.log("source Screen: " + doc.screens[key].ID + " and target screen: " + doc.screens[i].ID);
+      var p = doc.screens[i];
+      // CONTINUE HERE target.pos.x
+      doc.screens[key].out.port.drawConnection(p.pos.x, p.pos.y + p.size.h / 2);
+
+      //doc.screens[key].out.port.drawConnection(doc.screens[key].out.connections[i].pos.x, doc.screens[key].out.connections[i].pos.y + doc.screens[key].out.connections[i].size.h / 2);
     }
   }
 
@@ -171,4 +176,17 @@ function keyReleased() {
 
 function windowResized() {
   resizeCanvas(windowWidth, windowHeight);
+}
+
+
+function doubleClicked() {
+  if (doc.selection.length > 0) {
+    for (var key in doc.selection) {
+      if (doc.selection[key].constructor.name === "Port") {
+        var s =  doc.selection[key].parentID;
+        console.log(doc.screens[s].out.connections= {});
+        console.log("delete connections from screen: " + s);
+      }
+    }
+  }
 }
