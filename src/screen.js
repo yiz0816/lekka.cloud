@@ -116,6 +116,6 @@ Screen.prototype.updatePort = function () {
 }
 
 Screen.prototype.createOutgoingPort = function () {
-  console.log(this);
+  //console.log(this);
   this.out.port = new Port(this);
 }

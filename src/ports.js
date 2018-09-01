@@ -5,7 +5,6 @@ class Port extends Layer {
         this.parent = parent;
         this.parentID = parent.ID
         this.defaultPosition();
-        console.log(parent);
     }
 }
 
@@ -15,18 +14,7 @@ Port.prototype.draw = function () {
     var p = doc.screens[this.parentID];
     //console.log(parent);
     ellipse(p.pos.x + p.size.w, p.pos.y + p.size.h / 2, 16, 16);
-
-    //strokeWeight(1)
-    //noFill();
-    //fill(colors.highlight20);
-    //rect(this.pos.x, this.pos.y, this.size.w, this.size.h);
-    //console.log(this.pos.x);
 }
-
-/*createOutgoingPort = function (parent) {
-    console.log("new port with parent " + parent);
-    doc.ports[parent, parent.ID] = new Port(parent, parent.ID);
-}*/
 
 Port.prototype.renderHighlight = function () {
     fill(colors.highlight20);
@@ -40,11 +28,11 @@ Port.prototype.setPosition = function (x, y) {
 
 Port.prototype.defaultPosition = function () {
     var p = doc.screens[this.parentID];
-    console.log(doc.screens[this.parentID]);
-    console.log(p);
-    console.log(this.parent);
-    console.log(getScreenByID(this.parentID));
-    var p = getScreenByID(this.parentID);
+    //console.log(doc.screens[this.parentID]);
+    //console.log(p);
+    //console.log(this.parent);
+    //console.log(getScreenByID(this.parentID));
+    //var p = getScreenByID(this.parentID);
 
     this.pos.x = this.parent.pos.x + this.parent.size.w - 20;
     this.pos.y = this.parent.pos.y + this.parent.size.h / 2 - 40;
@@ -89,16 +77,20 @@ Port.prototype.connectTo = function (target) {
     console.log("Port " + this.ID + " is connected to Screen " + target.ID)
     return true;
 }
+Port.prototype.removeParent = function () {
+    this.parent = "fwfsd";
+    console.log("parent disconnected. Done to save as json");
+}
 
 getScreenByID = function (id) {
-    console.log("get ID by screen");
-    console.log(id)
+    console.log("get screen by ID");
+    //console.log(id)
     var result = "no screen found";
     for (var k in doc.screens) {
-        console.log(doc.screens[k].ID)
+        //console.log(doc.screens[k].ID)
         if (id === doc.screens[k].ID) {
-            console.log(doc.screens[k]);
-            result = doc.screens[k].ID;
+            //console.log(doc.screens[k]);
+            result = doc.screens[k];
         }
     }
     return result

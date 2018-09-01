@@ -4,12 +4,17 @@ class Document {
     this.settings = { "autoload": false, "option2": "myColor", "option3": "myAngle" };
     this.screens = {};
     this.selection = [];
-    this.ports = {};
     this.canvas = function () { createCanvas(windowWidth, windowHeight) };
   }
 }
 
 Document.prototype.save = function () {
+  for (var key in doc.screens) {
+    for (var i in doc.screens[key].out.port) {
+      doc.screens[key].out.port.removeParent();
+      console.log("Remove parent to be saved in Json");
+    }
+  }
   saveJSON(doc, "config.json");
 };
 
@@ -92,8 +97,10 @@ Document.prototype.updateFile = function () {
       console.log(i);
       t.createOutgoingPort(t);
       console.log(json.screens[k].out.connections[i]);
-      console.log(t.connections);
-     //  t.connections[i] = json.screens[k].out.connections[i]
+      console.log(t.out.connections);
+      t.out.connections[i] = json.screens[k].out.connections[i]
+      console.log(t.out.connections);
+
     }
     //createOutgoingPort
   }
