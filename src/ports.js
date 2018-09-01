@@ -2,9 +2,10 @@ class Port extends Layer {
     constructor(parent) {
         super();
         //this.ID = parent.ID
-        //this.parent = parent;
+        this.parent = parent;
         this.parentID = parent.ID
         this.defaultPosition();
+        console.log(parent);
     }
 }
 
@@ -22,9 +23,10 @@ Port.prototype.draw = function () {
     //console.log(this.pos.x);
 }
 
-createOutgoingPort = function (parent) {
-    doc.ports[parent.ID] = new Port(parent, parent.ID);
-}
+/*createOutgoingPort = function (parent) {
+    console.log("new port with parent " + parent);
+    doc.ports[parent, parent.ID] = new Port(parent, parent.ID);
+}*/
 
 Port.prototype.renderHighlight = function () {
     fill(colors.highlight20);
@@ -37,19 +39,17 @@ Port.prototype.setPosition = function (x, y) {
 }
 
 Port.prototype.defaultPosition = function () {
-    setTimeout(function () {
-        var p = doc.screens[this.parentID];
-        console.log(doc.screens[this.parentID]);
-        console.log(p);
-        console.log(this.parentID);
-        console.log(getScreenByID(this.parentID));
-        var p = getScreenByID(this.parentID);
+    var p = doc.screens[this.parentID];
+    console.log(doc.screens[this.parentID]);
+    console.log(p);
+    console.log(this.parent);
+    console.log(getScreenByID(this.parentID));
+    var p = getScreenByID(this.parentID);
 
-        this.pos.x = p.pos.x + p.size.w - 20;
-        this.pos.y = p.pos.y + p.size.h / 2 - 40;
-        this.size.w = 40;
-        this.size.h = 80;
-    }, 500);
+    this.pos.x = this.parent.pos.x + this.parent.size.w - 20;
+    this.pos.y = this.parent.pos.y + this.parent.size.h / 2 - 40;
+    this.size.w = 40;
+    this.size.h = 80;
 }
 Port.prototype.drawLine = function (x1, y1, x2, y2) {
     this.startP = [];
@@ -97,7 +97,7 @@ getScreenByID = function (id) {
     for (var k in doc.screens) {
         console.log(doc.screens[k].ID)
         if (id === doc.screens[k].ID) {
-            consolelog(doc.screens[k]);
+            console.log(doc.screens[k]);
             result = doc.screens[k].ID;
         }
     }
