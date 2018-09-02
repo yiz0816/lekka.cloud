@@ -31,6 +31,7 @@ Screen.prototype.draw = function () {
 };
 
 Screen.prototype.initialiseScreen = function () {
+  this.initialiseLayer();
   doc.screens[this.ID] = this;
   this.setSize(this.image.width / this.resolution, this.image.height / this.resolution);
   if (typeof this.imageStorage === "undefined") {

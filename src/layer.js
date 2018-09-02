@@ -9,16 +9,19 @@ class Layer {
     this.dragOffset = [];
     this.ID = id;
     this.attributes = {};
-    //this.attributes.general.data 
-    //this.attributes.general.data.created = int(random(1, 20)) + " days ago";
-    //this.attributes.general.lastEditor = randomNames[int(random(randomNames.length))];
-    this.addAttribute("Translation", "key3", "Guten Tag");
-    this.addAttribute("hidden", "created", int(random(1, 20)) + " days ago");
-    this.addAttribute("hidden", "lastEditor", randomNames[int(random(randomNames.length))]);
 
+    this.initialiseLayer();
   }
 }
+Layer.prototype.initialiseLayer = function () {
+  for (var k in doc.settings.defaultAttributes) {
+    this.addAttribute(doc.settings.defaultAttributes[k]);
+  }
+  this.addAttribute("Translation", "key3", "Guten Tag");
+  this.addAttribute("hidden", "created", int(random(1, 20)) + " days ago");
+  this.addAttribute("hidden", "lastEditor", randomNames[int(random(randomNames.length))]);
 
+}
 Layer.prototype.startDrag = function () {
   this.dragOffset.x = mouseX - this.pos.x;
   this.dragOffset.y = mouseY - this.pos.y;
@@ -74,13 +77,16 @@ Layer.prototype.isMouseOver = function () {
     return false;
   }
 }
-Layer.prototype.addAttribute = function (category, key, value) {
+Layer.prototype.addAttribute = function (category, key = "undefined", value = "undefined") {
   if (typeof this.attributes[category] === "undefined") {
     this.attributes[category] = {};
     this.attributes[category].data = {};
     this.attributes[category].categoryName = category;
   }
-  this.attributes[category].data[key] = value;
+
+  if (key !== "undefined" || value !== "undefined") {
+    this.attributes[category].data[key] = value;
+  }
 }
 
 Layer.prototype.renderInformation = function () {

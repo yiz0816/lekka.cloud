@@ -6,12 +6,12 @@ class Document {
     this.selection = {};
     this.canvas = function () { createCanvas(windowWidth, windowHeight) };
     this.fileName = "undefined";
-    this.defaultLayers = {"translation" : "Translations", "comments" : "Comments", "Budget" : "Budget"}
-  }
+    this.settings.defaultAttributes = ["Translation", "Comments", "Budget"];
+}
 }
 
 Document.prototype.save = function () {
-  var save = doc; 
+  var save = doc;
   for (var key in save.screens) {
     for (var i in save.screens[key].out.port) {
       if (save.screens.hasOwnProperty(key)) {
