@@ -6,7 +6,7 @@ class Document {
     this.selection = {};
     this.canvas = function () { createCanvas(windowWidth, windowHeight) };
     this.fileName = "undefined";
-    this.settings.defaultAttributes = ["Translation", "Comments", "Budget"];
+    this.settings.defaultAttributes = ["Translation", "Comments", "Budget", "Testing", "Annotations", "Bugs"];
 }
 }
 

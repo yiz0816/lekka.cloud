@@ -92,10 +92,9 @@ Layer.prototype.addAttribute = function (category, key = "undefined", value = "u
 Layer.prototype.renderInformation = function () {
   gui.ap.html("<h1>" + this.ID + "</h1>");
   gui.ap.html("<p class='small'><span class='light'>Created </span>" + this.attributes.hidden.data.created + "<span class=' light'> by </span><a href='#'>" + this.attributes.hidden.data.lastEditor + "</a></p>", true);
-  gui.ap.html("<hr>", true);
   for (var k in this.attributes) {
     if (this.attributes[k].categoryName !== "hidden") {
-      gui.ap.html("<button class='accordion'>" + this.attributes[k].categoryName + "</button>", true);
+      gui.ap.html("<h3 class='accordion'>" + this.attributes[k].categoryName + "</h3>", true);
       for (var i in this.attributes[k].data) {
         gui.ap.html("<p class='attribute'><span class='attributeName'>" + i + "</span><span class='attributeValue'>" + this.attributes[k].data[i] + "</span></p>", true);
       }
