@@ -25,14 +25,15 @@ function createP5GUI() {
 function createAttributePanel() {
   gui.ap = createDiv("attribute-panel")
     .style("background-color", colors.white)
-    .id("attribute-panel");
+    .id("attribute-panel")
+    .class("ap");
 }
 
 function createAddScreenButton() {
-  var addScreenButtomn = createDiv("Add Screen")
+  var addScreenButtomn = createDiv("Add")
     .id("floatingActionButton")
     .style(`background-color`, colors.highlight)
-    .mouseClicked(function () { new Screen() });
+    .mouseClicked(function () { new Screen(- doc.scene.offset.x + width / 2 -300, -doc.scene.offset.y + height / 2 - 300) });
 }
 
 function createLoader() {
@@ -76,8 +77,8 @@ function replaceImageFunc(image) {
   }
 }
 
-function removeScreens(){
-  for (var k in doc.selection){
+function removeScreens() {
+  for (var k in doc.selection) {
     console.log("delete Screen: " + doc.selection[k].ID);
     var s = getScreenByID(doc.selection[k].ID)
     console.log(s);
