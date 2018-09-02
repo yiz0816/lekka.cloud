@@ -5,6 +5,7 @@ class Document {
     this.screens = {};
     this.selection = {};
     this.canvas = function () { createCanvas(windowWidth, windowHeight) };
+    this.fileName = "undefined";
   }
 }
 
@@ -17,7 +18,11 @@ Document.prototype.save = function () {
       }
     }
   }
-  saveJSON(doc, "config.dat");
+  if (this.fileName === "undefined") {
+    this.fileName = "untitled-" + year() + "-" + month() + "-" + day();
+    this.fileName = prompt("Please enter a name for your file", this.fileName);
+  }
+  saveJSON(doc, this.fileName);
 };
 
 Document.prototype.loadFile = function (data) {
@@ -75,6 +80,7 @@ Document.prototype.updateFile = function () {
   //Map values
   this.version = json.version;
   this.scene.mode = "clicking";
+  this.fileName = json.fileName;
 
   for (var key in json.settings) {
     // skip loop if the property is from prototype
