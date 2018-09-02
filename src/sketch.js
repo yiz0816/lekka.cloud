@@ -213,7 +213,7 @@ function dropFile(file) {
   if (file.type === "image") {
     //console.log("dropped file is an image. So create a new Screen with this image");
     var name = file.name.split(".");
-    var s = new Screen(- doc.scene.offset.x + width / 2 - 300, -doc.scene.offset.y + height / 2 - 300, name[0])
+    var s = new Screen(mouseX - doc.scene.offset.x ,mouseY - doc.scene.offset.y, name[0])
     s.imageStorage = file;
     s.initialiseScreen();
   } else if (file.type === "application") {

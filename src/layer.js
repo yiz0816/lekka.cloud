@@ -1,5 +1,5 @@
 class Layer {
-  constructor(x = 0, y = 0, id = createID()) {
+  constructor(x = 100, y = 100, id = createID()) {
     this.pos = {};
     this.pos.x = x;
     this.pos.y = y;
@@ -92,6 +92,12 @@ Layer.prototype.addAttribute = function (category, key = "undefined", value = "u
 Layer.prototype.renderInformation = function () {
   gui.ap.html("<h1>" + this.ID + "</h1>");
   gui.ap.html("<p class='small'><span class='light'>Created </span>" + this.attributes.hidden.data.created + "<span class=' light'> by </span><a href='#'>" + this.attributes.hidden.data.lastEditor + "</a></p>", true);
+  console.log(typeof this);
+  if (typeof this === "object") {
+    gui.ap.html("<h3 class='accordion'> Image</h3>", true)
+    gui.ap.html("<p class='attribute'><span class='attributeName'> Resolution:</span><span class='attributeValue'>" + this.resolution + "</span></p>", true);
+  }
+
   for (var k in this.attributes) {
     if (this.attributes[k].categoryName !== "hidden") {
       gui.ap.html("<h3 class='accordion'>" + this.attributes[k].categoryName + "</h3>", true);

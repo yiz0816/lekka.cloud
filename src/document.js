@@ -58,7 +58,7 @@ Document.prototype.loadBase64File = function (file) {
   }
   json = JSON.parse(atob(data[1]));
   console.log(f.name + " loaded successfully");
-  setTimeout(function () { doc.updateFile(); }, 500);
+  setTimeout(function () { doc.updateFile(); }, 2500);
 };
 
 
@@ -103,6 +103,8 @@ Document.prototype.updateFile = function () {
     var t = new Screen(json.screens[k].pos.x, json.screens[k].pos.y, json.screens[k].ID);
     t.imageStorage = json.screens[k].imageStorage;
     console.log(t);
+    console.log(json.screens[k].resolution);
+    t.resolution = json.screens[k].resolution;
     for (var i in json.screens[k].out.connections) {
       t.createOutgoingPort(t);
       t.out.connections[i] = json.screens[k].out.connections[i]
