@@ -7,7 +7,7 @@ function setup() {
   createSubColors();
   frameRate(60);
 
-  cvn = createCanvas(windowWidth, windowHeight).drop(doc.loadBase64File);
+  cvn = createCanvas(windowWidth, windowHeight).drop(dropFile);
   loadGUI();
 
   // Instructions
@@ -104,6 +104,9 @@ function draw() {
   }
 }
 
+function redraw() {
+
+}
 function mousePressed() {
   doc.selection = [];
 
@@ -193,5 +196,21 @@ function doubleClicked() {
         console.log("delete connections from screen: " + s);
       }
     }
+  }
+}
+
+function dropFile(file) {
+  console.log(file);
+  if (file.type === "image") {
+    //console.log("dropped file is an image. So create a new Screen with this image");
+    var s = new Screen(- doc.scene.offset.x + width / 2 - 300, -doc.scene.offset.y + height / 2 - 300)
+    s.imageStorage = file;
+    s.initialiseScreen();
+  } else if (file.type === "application") {
+    if (file.subtype === "json") {
+      doc.loadBase64File(file);
+    }
+  } else {
+    console.log("file format is not supported");
   }
 }

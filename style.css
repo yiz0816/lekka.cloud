@@ -29,6 +29,7 @@ body{
     height: 100%;
     padding: 0px 20px 0px 20px;
     overflow: auto;
+    resize: horizontal;
 }
 
 .ap .attributeValue{

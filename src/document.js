@@ -1,20 +1,22 @@
 class Document {
   constructor() {
     this.scene = new Scene();
-    this.settings = { "autoload": false, "option2": "myColor", "option3": "myAngle" };
+    this.settings = { "autoload": false };
     this.screens = {};
     this.selection = {};
     this.canvas = function () { createCanvas(windowWidth, windowHeight) };
     this.fileName = "undefined";
+    this.defaultLayers = {"translation" : "Translations", "comments" : "Comments", "Budget" : "Budget"}
   }
 }
 
 Document.prototype.save = function () {
-  for (var key in doc.screens) {
-    for (var i in doc.screens[key].out.port) {
-      if (doc.screens.hasOwnProperty(key)) {
-        doc.screens[key].out.port.removeParent();
-        console.log("Remove parent to be saved in Json");
+  var save = doc; 
+  for (var key in save.screens) {
+    for (var i in save.screens[key].out.port) {
+      if (save.screens.hasOwnProperty(key)) {
+        save.screens[key].out.port.removeParent();
+        //console.log("Remove parent to be saved in Json");
       }
     }
   }
@@ -22,7 +24,7 @@ Document.prototype.save = function () {
     this.fileName = "untitled-" + year() + "-" + month() + "-" + day();
     this.fileName = prompt("Please enter a name for your file", this.fileName);
   }
-  saveJSON(doc, this.fileName);
+  saveJSON(save, this.fileName);
 };
 
 Document.prototype.loadFile = function (data) {

@@ -7,9 +7,11 @@ class Screen extends Layer {
     this.in.connections = {};
     this.out = {};
     this.out.connections = {};
-    this.resolution = 2;
+    this.resolution = 3;
     this.ID = id;
     this.image = loadImage('img/placeholder.jpg', () => this.initialiseScreen());
+
+    return this;
   }
 }
 

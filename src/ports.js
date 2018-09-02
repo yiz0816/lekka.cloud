@@ -80,8 +80,9 @@ Port.prototype.connectTo = function (target) {
     return true;
 }
 Port.prototype.removeParent = function () {
-    this.parent = "fwfsd";
-    console.log("parent disconnected. Done to save as json");
+    delete this.parent;
+    delete this; 
+    //console.log("parent disconnected. Done to save as json");
 }
 
 getScreenByID = function (id) {
