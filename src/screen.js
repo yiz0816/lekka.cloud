@@ -22,7 +22,6 @@ Screen.prototype.draw = function () {
   rect(this.pos.x, this.pos.y, this.size.w, this.size.h);
 
   imageMode(CORNER);
-  console.log(this.image.width / this.resolution);
   image(this.image, this.pos.x, this.pos.y, this.image.width / this.resolution, this.image.height / this.resolution);
   stroke(colors.darkGrey);
   strokeWeight(3);
