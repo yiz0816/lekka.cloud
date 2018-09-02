@@ -22,6 +22,7 @@ Screen.prototype.draw = function () {
   rect(this.pos.x, this.pos.y, this.size.w, this.size.h);
 
   imageMode(CORNER);
+  console.log(this.image.width / this.resolution);
   image(this.image, this.pos.x, this.pos.y, this.image.width / this.resolution, this.image.height / this.resolution);
   stroke(colors.darkGrey);
   strokeWeight(3);
@@ -41,6 +42,7 @@ Screen.prototype.initialiseScreen = function () {
   }
   this.createOutgoingPort();
   this.updatePorts();
+  this.updateResolution();
 };
 
 Screen.prototype.updateImage = function () {
@@ -68,4 +70,19 @@ Screen.prototype.delete = function () {
     }
   }
   delete doc.screens[this.ID];
+}
+
+Screen.prototype.updateResolution = function () {
+  if (this.image.width === 1125) {
+    this.resolution = 3;
+  } else if (this.image.width === 750) {
+    this.resolution = 2;
+  } else if (this.image.width === 375) {
+    this.resolution = 1;
+  }
+}
+
+Screen.prototype.Resolution = function (v) {
+  this.resolution = v;
+  this.initialiseScreen();
 }

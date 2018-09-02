@@ -134,8 +134,17 @@ function keyPressed() {
   if (key === "l" || key === "L") {
     doc.loadFile();
   }
-  if (key === "1" || key === "1") {
-    doc.updateFile();
+  if (key === "1") {
+    for (var k in doc.selection)
+    doc.selection[k].Resolution(1);
+  }
+  if (key === "2") {
+    for (var k in doc.selection)
+    doc.selection[k].Resolution(2);
+  }
+  if (key === "3") {
+    for (var k in doc.selection)
+    doc.selection[k].Resolution(3);
   }
 }
 
@@ -203,7 +212,8 @@ function dropFile(file) {
   console.log(file);
   if (file.type === "image") {
     //console.log("dropped file is an image. So create a new Screen with this image");
-    var s = new Screen(- doc.scene.offset.x + width / 2 - 300, -doc.scene.offset.y + height / 2 - 300)
+    var name = file.name.split(".");
+    var s = new Screen(- doc.scene.offset.x + width / 2 - 300, -doc.scene.offset.y + height / 2 - 300, name[0])
     s.imageStorage = file;
     s.initialiseScreen();
   } else if (file.type === "application") {
