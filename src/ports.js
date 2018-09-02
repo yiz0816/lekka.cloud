@@ -55,11 +55,13 @@ Port.prototype.drawLine = function (x1, y1, x2, y2) {
     strokeWeight(3);
     noFill();
     bezier(
-        this.startP.x + doc.scene.offset.x + this.size.w / 2, this.startP.y + doc.scene.offset.y + this.size.h / 2,                         // Point 1
-        this.startP.x + this.overshoot + doc.scene.offset.x + this.size.w / 2, this.startP.y + doc.scene.offset.y + this.size.h / 2,        // Point 2
-        this.endP.x - this.overshoot + doc.scene.offset.x, this.endP.y + doc.scene.offset.y,                                            // Point 3
-        this.endP.x + doc.scene.offset.x, this.endP.y + doc.scene.offset.y                                                              // Point 4
+        this.startP.x + this.size.w / 2, this.startP.y + this.size.h / 2,                         // Point 1
+        this.startP.x + this.overshoot + this.size.w / 2, this.startP.y + this.size.h / 2,        // Point 2
+        this.endP.x - this.overshoot, this.endP.y,                                            // Point 3
+        this.endP.x, this.endP.y                                                             // Point 4
     );
+    fill(0);
+    noStroke();
 }
 
 Port.prototype.drawTempLine = function () {
@@ -83,7 +85,7 @@ Port.prototype.removeParent = function () {
 }
 
 getScreenByID = function (id) {
-    console.log("get screen by ID");
+    //console.log("get screen by ID");
     //console.log(id)
     var result = "no screen found";
     for (var k in doc.screens) {

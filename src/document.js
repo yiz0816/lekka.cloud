@@ -3,7 +3,7 @@ class Document {
     this.scene = new Scene();
     this.settings = { "autoload": false, "option2": "myColor", "option3": "myAngle" };
     this.screens = {};
-    this.selection = [];
+    this.selection = {};
     this.canvas = function () { createCanvas(windowWidth, windowHeight) };
   }
 }
@@ -11,11 +11,13 @@ class Document {
 Document.prototype.save = function () {
   for (var key in doc.screens) {
     for (var i in doc.screens[key].out.port) {
-      doc.screens[key].out.port.removeParent();
-      console.log("Remove parent to be saved in Json");
+      if (doc.screens.hasOwnProperty(key)) {
+        doc.screens[key].out.port.removeParent();
+        console.log("Remove parent to be saved in Json");
+      }
     }
   }
-  saveJSON(doc, "config.json");
+  saveJSON(doc, "config.dat");
 };
 
 Document.prototype.loadFile = function (data) {
@@ -91,18 +93,13 @@ Document.prototype.updateFile = function () {
 
   for (var k in json.screens) {
     var t = new Screen(json.screens[k].pos.x, json.screens[k].pos.y, json.screens[k].ID);
-    //console.log(json.screens[k]);
+    t.imageStorage = json.screens[k].imageStorage;
     console.log(t);
     for (var i in json.screens[k].out.connections) {
-      console.log(i);
       t.createOutgoingPort(t);
-      console.log(json.screens[k].out.connections[i]);
-      console.log(t.out.connections);
       t.out.connections[i] = json.screens[k].out.connections[i]
-      console.log(t.out.connections);
-
     }
-    //createOutgoingPort
+    t.initialiseScreen();
   }
 
 
