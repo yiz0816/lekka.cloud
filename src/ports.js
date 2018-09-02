@@ -65,7 +65,7 @@ Port.prototype.drawLine = function (x1, y1, x2, y2) {
 }
 
 Port.prototype.drawTempLine = function () {
-    this.drawLine(this.pos.x, this.pos.y, mouseX, mouseY);
+    this.drawLine(this.pos.x, this.pos.y, mouseX - doc.scene.offset.x, mouseY - doc.scene.offset.y);
 }
 
 Port.prototype.drawConnection = function (x2, y2) {
