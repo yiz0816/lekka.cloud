@@ -1,4 +1,4 @@
-var sc, gui, json;
+var sc, gui, json, cvn, inputs;
 
 function setup() {
   doc = new Document();
@@ -7,16 +7,13 @@ function setup() {
   createSubColors();
   frameRate(60);
 
-  createCanvas(windowWidth, windowHeight).drop(doc.loadBase64File);
-  resizeCanvas(windowWidth, windowHeight);
+  cvn = createCanvas(windowWidth, windowHeight).drop(dropFile);
   loadGUI();
 
   // Instructions
   console.log("Press `S` to save the current layout to a config.json");
-  console.log("Press `L` to load a config.json file.")
 
   // Floating Interface Elements
-
   if (doc.settings.autoload == true) {
     try {
       doc.loadFile();
@@ -35,21 +32,21 @@ function draw() {
   translate(sc.offset.x, sc.offset.y);
   backgroundGrid();
   sc.mapMouse();
-  //console.log(doc.scene.mode);
 
   // Render Screens and Connection
   for (var key in doc.screens) {
     doc.screens[key].draw();
     doc.screens[key].out.port.draw();
-    //console.log(doc.screens[key]);
     for (var i in doc.screens[key].out.connections) {
-      //console.log(doc.screens[key].out.connections[i]);
-      //console.log("source Screen: " + doc.screens[key].ID + " and target screen: " + doc.screens[i].ID);
-      var p = doc.screens[i];
-      // CONTINUE HERE target.pos.x
-      doc.screens[key].out.port.drawConnection(p.pos.x, p.pos.y + p.size.h / 2);
+      //console.log(i);
+      //console.log(getScreenByID(i));
+      if (getScreenByID(i) !== "undefined") {
+        var p = doc.screens[i];
 
-      //doc.screens[key].out.port.drawConnection(doc.screens[key].out.connections[i].pos.x, doc.screens[key].out.connections[i].pos.y + doc.screens[key].out.connections[i].size.h / 2);
+        doc.screens[key].out.port.drawConnection(p.pos.x, p.pos.y + p.size.h / 2);
+      } else {
+        console.log("delete port");
+      }
     }
   }
 
@@ -81,7 +78,14 @@ function draw() {
   for (var k in doc.screens) {
     if (doc.screens[k].isMouseOver()) {
       doc.screens[k].renderSelection();
+      //doc.screens[k].renderReplace();
+      setButtonPosition("replaceButton", doc.screens[k].pos.x + doc.scene.offset.x, doc.screens[k].pos.y + doc.scene.offset.y);
+      setButtonPosition("deleteButton", doc.screens[k].pos.x + doc.scene.offset.x, doc.screens[k].pos.y + doc.scene.offset.y + 30);
       //doc.screens[k].out.port.renderHighlight();
+      break;
+    } else {
+      setButtonPosition("replaceButton", 0, -50);
+      setButtonPosition("deleteButton", 0, -30);
     }
   }
 
@@ -100,8 +104,12 @@ function draw() {
   }
 }
 
+function redraw() {
+
+}
 function mousePressed() {
   doc.selection = [];
+
   for (var key in doc.screens) {
     if (doc.screens.hasOwnProperty(key)) {
       if (doc.screens[key].isMouseOver()) {
@@ -126,8 +134,17 @@ function keyPressed() {
   if (key === "l" || key === "L") {
     doc.loadFile();
   }
-  if (key === "1" || key === "1") {
-    doc.updateFile();
+  if (key === "1") {
+    for (var k in doc.selection)
+    doc.selection[k].Resolution(1);
+  }
+  if (key === "2") {
+    for (var k in doc.selection)
+    doc.selection[k].Resolution(2);
+  }
+  if (key === "3") {
+    for (var k in doc.selection)
+    doc.selection[k].Resolution(3);
   }
 }
 
@@ -135,7 +152,7 @@ function mouseReleased() {
   for (var key in doc.selection) {
     if (doc.selection[key].constructor.name === "Screen") {
       doc.selection[key].endDrag();
-      doc.selection[key].updatePort();
+      doc.selection[key].updatePorts();
       doc.selection[key].renderInformation();
 
 
@@ -159,7 +176,7 @@ function mouseDragged() {
   for (var key in doc.selection) {
     if (doc.scene.mode === "clicking" || doc.scene.mode === "moveLayer") {
       doc.selection[key].whileDrag();
-      doc.selection[key].updatePort();
+      doc.selection[key].updatePorts();
       //doc.ports[key].whileDrag();
     }
     else if (doc.scene.mode === "connect" && doc.selection[key].constructor.name === "Port") {
@@ -183,10 +200,27 @@ function doubleClicked() {
   if (doc.selection.length > 0) {
     for (var key in doc.selection) {
       if (doc.selection[key].constructor.name === "Port") {
-        var s =  doc.selection[key].parentID;
-        console.log(doc.screens[s].out.connections= {});
+        var s = doc.selection[key].parentID;
+        console.log(doc.screens[s].out.connections = {});
         console.log("delete connections from screen: " + s);
       }
     }
+  }
+}
+
+function dropFile(file) {
+  console.log(file);
+  if (file.type === "image") {
+    //console.log("dropped file is an image. So create a new Screen with this image");
+    var name = file.name.split(".");
+    var s = new Screen(mouseX - doc.scene.offset.x ,mouseY - doc.scene.offset.y, name[0])
+    s.imageStorage = file;
+    s.initialiseScreen();
+  } else if (file.type === "application") {
+    if (file.subtype === "json") {
+      doc.loadBase64File(file);
+    }
+  } else {
+    console.log("file format is not supported");
   }
 }

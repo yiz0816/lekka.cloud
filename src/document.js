@@ -1,21 +1,30 @@
 class Document {
   constructor() {
     this.scene = new Scene();
-    this.settings = { "autoload": false, "option2": "myColor", "option3": "myAngle" };
+    this.settings = { "autoload": false };
     this.screens = {};
-    this.selection = [];
+    this.selection = {};
     this.canvas = function () { createCanvas(windowWidth, windowHeight) };
-  }
+    this.fileName = "undefined";
+    this.settings.defaultAttributes = ["Translation", "Comments", "Budget", "Testing", "Annotations", "Bugs"];
+}
 }
 
 Document.prototype.save = function () {
-  for (var key in doc.screens) {
-    for (var i in doc.screens[key].out.port) {
-      doc.screens[key].out.port.removeParent();
-      console.log("Remove parent to be saved in Json");
+  var save = doc;
+  for (var key in save.screens) {
+    for (var i in save.screens[key].out.port) {
+      if (save.screens.hasOwnProperty(key)) {
+        save.screens[key].out.port.removeParent();
+        //console.log("Remove parent to be saved in Json");
+      }
     }
   }
-  saveJSON(doc, "config.json");
+  if (this.fileName === "undefined") {
+    this.fileName = "untitled-" + year() + "-" + month() + "-" + day();
+    this.fileName = prompt("Please enter a name for your file", this.fileName);
+  }
+  saveJSON(save, this.fileName);
 };
 
 Document.prototype.loadFile = function (data) {
@@ -49,7 +58,7 @@ Document.prototype.loadBase64File = function (file) {
   }
   json = JSON.parse(atob(data[1]));
   console.log(f.name + " loaded successfully");
-  setTimeout(function () { doc.updateFile(); }, 500);
+  setTimeout(function () { doc.updateFile(); }, 2500);
 };
 
 
@@ -73,6 +82,7 @@ Document.prototype.updateFile = function () {
   //Map values
   this.version = json.version;
   this.scene.mode = "clicking";
+  this.fileName = json.fileName;
 
   for (var key in json.settings) {
     // skip loop if the property is from prototype
@@ -91,18 +101,15 @@ Document.prototype.updateFile = function () {
 
   for (var k in json.screens) {
     var t = new Screen(json.screens[k].pos.x, json.screens[k].pos.y, json.screens[k].ID);
-    //console.log(json.screens[k]);
+    t.imageStorage = json.screens[k].imageStorage;
     console.log(t);
+    console.log(json.screens[k].resolution);
+    t.resolution = json.screens[k].resolution;
     for (var i in json.screens[k].out.connections) {
-      console.log(i);
       t.createOutgoingPort(t);
-      console.log(json.screens[k].out.connections[i]);
-      console.log(t.out.connections);
       t.out.connections[i] = json.screens[k].out.connections[i]
-      console.log(t.out.connections);
-
     }
-    //createOutgoingPort
+    t.initialiseScreen();
   }
 
 
