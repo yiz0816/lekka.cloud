@@ -12,6 +12,7 @@ function setup() {
 
   // Instructions
   console.log("Press `S` to save the current layout to a config.json");
+  console.log("Press `P` to save the current layout as PDF");
 
   // Floating Interface Elements
   if (doc.settings.autoload == true) {
@@ -133,6 +134,9 @@ function keyPressed() {
   }
   if (key === "l" || key === "L") {
     doc.loadFile();
+  }
+  if (key === "p" || key === "P") {
+    doc.printLayout();
   }
   if (key === "1") {
     for (var k in doc.selection)

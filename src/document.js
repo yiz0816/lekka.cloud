@@ -115,3 +115,7 @@ Document.prototype.updateFile = function () {
 
   console.log("finished updating");
 }
+
+Document.prototype.printLayout = function(){
+  console.log("print");
+}
