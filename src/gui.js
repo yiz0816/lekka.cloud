@@ -14,6 +14,7 @@ function onFileChosen(file) {
   doc.loadFile(file);
 
 }
+
 function createP5GUI() {
   gui = createGui('Main');
   //gui.addGlobals('file');
@@ -33,7 +34,10 @@ function createAddScreenButton() {
   var addScreenButtomn = createDiv("Add")
     .id("floatingActionButton")
     .style(`background-color`, colors.highlight)
-    .mouseClicked(function () { new Screen(- doc.scene.offset.x + width / 2 -300, -doc.scene.offset.y + height / 2 - 300) });
+    .mouseClicked(function () {
+      new Screen(-doc.scene.offset.x + width / 2 - 300, -doc.scene.offset.y + height / 2 - 300);
+      ga('send', 'event', "Button", "Create new Screen", "Using the FAB",);
+    });
 }
 
 function createLoader() {

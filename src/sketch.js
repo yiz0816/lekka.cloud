@@ -18,9 +18,10 @@ function setup() {
   if (doc.settings.autoload == true) {
     try {
       doc.loadFile();
-      setTimeout(function () { doc.updateFile(); }, 500);
-    }
-    catch (err) {
+      setTimeout(function () {
+        doc.updateFile();
+      }, 500);
+    } catch (err) {
       console.log(err);
     }
   }
@@ -66,15 +67,6 @@ function draw() {
   }
 
 
-
-  // Dragggin the layout pane
-  if (keyIsPressed === true && keyCode === 32) {
-    cursor(HAND);
-    if (mouseIsPressed === true) {
-      doc.scene.startDragging();
-    }
-  }
-
   // Hover Screens
   for (var k in doc.screens) {
     if (doc.screens[k].isMouseOver()) {
@@ -100,15 +92,16 @@ function draw() {
     }
   }
   for (var i in doc.screens) {
-    if (doc.screens[i].isMouseOver()) {
-    }
+    if (doc.screens[i].isMouseOver()) {}
   }
 }
 
 function redraw() {
 
 }
+
 function mousePressed() {
+
   doc.selection = [];
 
   for (var key in doc.screens) {
@@ -117,6 +110,8 @@ function mousePressed() {
         doc.selection.push(doc.screens[key]);
         doc.screens[key].startDrag();
         break;
+      } else if (mouseButton === LEFT && doc.selection.length === 0) {
+        doc.scene.startDragging();
       }
     }
     if (doc.screens[key].out.port.isMouseOver()) {
@@ -140,15 +135,15 @@ function keyPressed() {
   }
   if (key === "1") {
     for (var k in doc.selection)
-    doc.selection[k].Resolution(1);
+      doc.selection[k].Resolution(1);
   }
   if (key === "2") {
     for (var k in doc.selection)
-    doc.selection[k].Resolution(2);
+      doc.selection[k].Resolution(2);
   }
   if (key === "3") {
     for (var k in doc.selection)
-    doc.selection[k].Resolution(3);
+      doc.selection[k].Resolution(3);
   }
 }
 
@@ -182,8 +177,7 @@ function mouseDragged() {
       doc.selection[key].whileDrag();
       doc.selection[key].updatePorts();
       //doc.ports[key].whileDrag();
-    }
-    else if (doc.scene.mode === "connect" && doc.selection[key].constructor.name === "Port") {
+    } else if (doc.scene.mode === "connect" && doc.selection[key].constructor.name === "Port") {
       //doc.selection[key].drawConncetion(0,0, mouseX, mouseY);
     }
   }
@@ -217,7 +211,8 @@ function dropFile(file) {
   if (file.type === "image") {
     //console.log("dropped file is an image. So create a new Screen with this image");
     var name = file.name.split(".");
-    var s = new Screen(mouseX - doc.scene.offset.x ,mouseY - doc.scene.offset.y, name[0])
+    var s = new Screen(mouseX - doc.scene.offset.x, mouseY - doc.scene.offset.y, name[0])
+    ga('send', 'event', 'Screen', 'Create new Screen via DragDrop', 30);
     s.imageStorage = file;
     s.initialiseScreen();
   } else if (file.type === "application") {

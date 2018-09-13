@@ -1,0 +1,9 @@
+{
+		"name": "my server1",
+		"host": "127.0.0.1",
+		"port": 21,
+		"type": "ftp",
+		"username": "id",
+		"password": "pw",
+		"path" : "/"
+	},
