@@ -1,13 +1,17 @@
 class Document {
   constructor() {
     this.scene = new Scene();
-    this.settings = { "autoload": false };
+    this.settings = {
+      "autoload": false
+    };
     this.screens = {};
     this.selection = {};
-    this.canvas = function () { createCanvas(windowWidth, windowHeight) };
+    this.canvas = function () {
+      createCanvas(windowWidth, windowHeight)
+    };
     this.fileName = "undefined";
     this.settings.defaultAttributes = ["Translation", "Comments", "Budget", "Testing", "Annotations", "Bugs"];
-}
+  }
 }
 
 Document.prototype.save = function () {
@@ -58,7 +62,9 @@ Document.prototype.loadBase64File = function (file) {
   }
   json = JSON.parse(atob(data[1]));
   console.log(f.name + " loaded successfully");
-  setTimeout(function () { doc.updateFile(); }, 2500);
+  setTimeout(function () {
+    doc.updateFile();
+  }, 2500);
 };
 
 
@@ -116,6 +122,39 @@ Document.prototype.updateFile = function () {
   console.log("finished updating");
 }
 
-Document.prototype.printLayout = function(){
+Document.prototype.printLayout = function () {
   console.log("print");
+  var orgW = windowWidth;
+  var orgH = windowHeight;
+
+  var cvnW = windowWidth;
+  var cvnH = windowHeight;
+  var cvnX = 0;
+  var cvnY = 0;
+
+  for (var k in doc.screens) {
+    if (doc.screens.hasOwnProperty(k)) {
+
+      // Check for the X size
+      if (doc.screens[k].pos.x < cvnX) {
+        cvnX = doc.screens[k].pos.x;
+      } else if (doc.screens[k].pos.x + doc.screens[k].size.w > cvnW) {
+        cvnW = doc.screens[k].pos.x + doc.screens[k].size.w;
+      }
+
+      // Check for the Y size
+      if (doc.screens[k].pos.y < cvnY) {
+        cvnY = doc.screens[k].pos.y;
+      } else if (doc.screens[k].pos.y + doc.screens[k].size.h > cvnH) {
+        cvnH = doc.screens[k].pos.y + doc.screens[k].size.h;
+      }
+    }
+  }
+  doc.scene.offset.x = Math.abs(cvnX) + 50;
+  doc.scene.offset.y = Math.abs(cvnY) + 50;
+  resizeCanvas(cvnW + Math.abs(cvnX) + 100, cvnH + Math.abs(cvnY) + 100);
+  console.log(cvnW + " - " + cvnH);
+  console.log(cvnX + " - " + cvnY);
+  saveCanvas(doc.fileName, "jpg");
+  resizeCanvas(orgW, orgH);
 }

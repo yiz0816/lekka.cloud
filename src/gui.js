@@ -8,6 +8,7 @@ function loadGUI() {
   createLoader();
   createImageReplaceButton();
   createDeleteButton();
+  createKeyField("test", "Start");
 }
 
 function onFileChosen(file) {
@@ -28,6 +29,7 @@ function createAttributePanel() {
     .style("background-color", colors.white)
     .id("attribute-panel")
     .class("ap");
+    gui.ap.fields = {};
 }
 
 function createAddScreenButton() {
@@ -36,13 +38,18 @@ function createAddScreenButton() {
     .style(`background-color`, colors.highlight)
     .mouseClicked(function () {
       new Screen(-doc.scene.offset.x + width / 2 - 300, -doc.scene.offset.y + height / 2 - 300);
-      ga('send', 'event', "Button", "Create new Screen", "Using the FAB",);
+      ga('send', 'event', "Product", "Create Screen from FAB", "Using the FAB",);
     });
 }
 
 function createLoader() {
   gui.file = createFileInput(doc.loadFile);
   gui.file.position(0, 0);
+}
+
+function createKeyField(name, value, target) {
+  gui.ap.fields[name] = createInput(value).parent("attribute-panel").input(testKeyField).id(name).class("plain-input");
+  gui.ap.fields[name].field = target; 
 }
 
 var createImageReplaceButton = function (x = 0, y = 0) {
@@ -88,4 +95,8 @@ function removeScreens() {
     console.log(s);
     s.delete();
   }
+}
+
+function testKeyField(){
+  console.log(this.value());
 }

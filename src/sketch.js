@@ -96,29 +96,24 @@ function draw() {
   }
 }
 
-function redraw() {
-
-}
-
 function mousePressed() {
-
   doc.selection = [];
-
   for (var key in doc.screens) {
     if (doc.screens.hasOwnProperty(key)) {
       if (doc.screens[key].isMouseOver()) {
         doc.selection.push(doc.screens[key]);
         doc.screens[key].startDrag();
         break;
-      } else if (mouseButton === LEFT && doc.selection.length === 0) {
-        doc.scene.startDragging();
+      }
+      if (doc.screens[key].out.port.isMouseOver()) {
+        doc.scene.setMode("connect");
+        doc.screens[key].out.port.renderHighlight();
+        doc.selection.push(doc.screens[key].out.port)
       }
     }
-    if (doc.screens[key].out.port.isMouseOver()) {
-      doc.scene.setMode("connect");
-      doc.screens[key].out.port.renderHighlight();
-      doc.selection.push(doc.screens[key].out.port)
-    }
+  }
+  if (mouseButton === LEFT && doc.selection.length === 0) {
+    doc.scene.startDragging();
   }
 }
 
