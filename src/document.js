@@ -1,13 +1,17 @@
 class Document {
   constructor() {
     this.scene = new Scene();
-    this.settings = { "autoload": false };
+    this.settings = {
+      "autoload": true
+    };
     this.screens = {};
     this.selection = {};
-    this.canvas = function () { createCanvas(windowWidth, windowHeight) };
+    this.canvas = function () {
+      createCanvas(windowWidth, windowHeight)
+    };
     this.fileName = "undefined";
     this.settings.defaultAttributes = ["Translation", "Comments", "Budget", "Testing", "Annotations", "Bugs"];
-}
+  }
 }
 
 Document.prototype.save = function () {
@@ -27,7 +31,7 @@ Document.prototype.save = function () {
   saveJSON(save, this.fileName);
 };
 
-Document.prototype.loadFile = function (data) {
+Document.prototype.loadFile = function (data = "./data/default.json") {
   console.log("Start loading some file");
   try {
     if (typeof data === "string") {
@@ -42,11 +46,12 @@ Document.prototype.loadFile = function (data) {
   }
 }
 
-Document.prototype.loadLocalFile = function (file = "./data/config.json") {
-  console.log(file);
-  json = loadJSON(file), this.jsonLoaded(file);
-};
 
+Document.prototype.loadLocalFile = function (file = "./data/default.json") {
+console.log(file);
+json = loadJSON(file), this.jsonLoaded(file);
+
+}
 Document.prototype.loadBase64File = function (file) {
   var f = file;
   var data = f.data.split(",");
@@ -58,7 +63,9 @@ Document.prototype.loadBase64File = function (file) {
   }
   json = JSON.parse(atob(data[1]));
   console.log(f.name + " loaded successfully");
-  setTimeout(function () { doc.updateFile(); }, 2500);
+  setTimeout(function () {
+    doc.updateFile();
+  }, 2500);
 };
 
 
@@ -78,6 +85,7 @@ Document.prototype.autoSave = function (uri) {
 
 Document.prototype.updateFile = function () {
   console.log("updating sceen");
+  console.log(json);
 
   //Map values
   this.version = json.version;
@@ -114,4 +122,45 @@ Document.prototype.updateFile = function () {
 
 
   console.log("finished updating");
+}
+
+Document.prototype.printLayout = function () {
+  console.log("print");
+  var orgW = windowWidth;
+  var orgH = windowHeight;
+
+  var cvnW = windowWidth;
+  var cvnH = windowHeight;
+  var cvnX = 0;
+  var cvnY = 0;
+
+  // Catch all screens inside a rectangle
+  for (var k in doc.screens) {
+    if (doc.screens.hasOwnProperty(k)) {
+
+      // Check for the X size
+      if (doc.screens[k].pos.x < cvnX) {
+        cvnX = doc.screens[k].pos.x;
+      } else if (doc.screens[k].pos.x + doc.screens[k].size.w > cvnW) {
+        cvnW = doc.screens[k].pos.x + doc.screens[k].size.w;
+      }
+
+      // Check for the Y size
+      if (doc.screens[k].pos.y < cvnY) {
+        cvnY = doc.screens[k].pos.y;
+      } else if (doc.screens[k].pos.y + doc.screens[k].size.h > cvnH) {
+        cvnH = doc.screens[k].pos.y + doc.screens[k].size.h;
+      }
+    }
+  }
+
+  // + 50 and +100 add a nice padding to the layout
+  doc.scene.offset.x = Math.abs(cvnX) + 50;
+  doc.scene.offset.y = Math.abs(cvnY) + 50;
+  resizeCanvas(cvnW + Math.abs(cvnX) + 100, cvnH + Math.abs(cvnY) + 100);
+  
+  saveCanvas(doc.fileName, "jpg");
+
+  // Restore old canvas size
+  resizeCanvas(orgW, orgH);
 }

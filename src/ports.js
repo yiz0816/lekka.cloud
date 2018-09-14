@@ -34,7 +34,7 @@ Port.prototype.defaultPosition = function () {
     //console.log(getScreenByID(this.parentID));
     //var p = getScreenByID(this.parentID);
 
-    this.pos.x = this.parent.pos.x + this.parent.size.w - 20;
+    this.pos.x = this.parent.pos.x + this.parent.size.w;
     this.pos.y = this.parent.pos.y + this.parent.size.h / 2 - 40;
     this.size.w = 40;
     this.size.h = 80;
@@ -55,7 +55,7 @@ Port.prototype.drawLine = function (x1, y1, x2, y2) {
     strokeWeight(3);
     noFill();
     bezier(
-        this.startP.x + this.size.w / 2, this.startP.y + this.size.h / 2,                         // Point 1
+        this.startP.x, this.startP.y + this.size.h / 2,                         // Point 1
         this.startP.x + this.overshoot + this.size.w / 2, this.startP.y + this.size.h / 2,        // Point 2
         this.endP.x - this.overshoot, this.endP.y,                                            // Point 3
         this.endP.x, this.endP.y                                                             // Point 4

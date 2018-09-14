@@ -4,7 +4,8 @@ var colors = {
   darkGrey: '#cccccc',
   pink: '#f957c3',
   white: '#FFFFFF',
-  green: "rgba(0,255,0,1)"
+  green: "rgba(0,255,0,1)",
+  brightGrey: '#FAFAFA'
 }
 
 var createSubColors = function(){
