@@ -2,7 +2,7 @@ class Document {
   constructor() {
     this.scene = new Scene();
     this.settings = {
-      "autoload": false
+      "autoload": true
     };
     this.screens = {};
     this.selection = {};
@@ -31,7 +31,7 @@ Document.prototype.save = function () {
   saveJSON(save, this.fileName);
 };
 
-Document.prototype.loadFile = function (data) {
+Document.prototype.loadFile = function (data = "./data/default.json") {
   console.log("Start loading some file");
   try {
     if (typeof data === "string") {
@@ -46,11 +46,12 @@ Document.prototype.loadFile = function (data) {
   }
 }
 
-Document.prototype.loadLocalFile = function (file = "./data/config.json") {
-  console.log(file);
-  json = loadJSON(file), this.jsonLoaded(file);
-};
 
+Document.prototype.loadLocalFile = function (file = "./data/default.json") {
+console.log(file);
+json = loadJSON(file), this.jsonLoaded(file);
+
+}
 Document.prototype.loadBase64File = function (file) {
   var f = file;
   var data = f.data.split(",");
@@ -84,6 +85,7 @@ Document.prototype.autoSave = function (uri) {
 
 Document.prototype.updateFile = function () {
   console.log("updating sceen");
+  console.log(json);
 
   //Map values
   this.version = json.version;
@@ -132,6 +134,7 @@ Document.prototype.printLayout = function () {
   var cvnX = 0;
   var cvnY = 0;
 
+  // Catch all screens inside a rectangle
   for (var k in doc.screens) {
     if (doc.screens.hasOwnProperty(k)) {
 
@@ -150,11 +153,14 @@ Document.prototype.printLayout = function () {
       }
     }
   }
+
+  // + 50 and +100 add a nice padding to the layout
   doc.scene.offset.x = Math.abs(cvnX) + 50;
   doc.scene.offset.y = Math.abs(cvnY) + 50;
   resizeCanvas(cvnW + Math.abs(cvnX) + 100, cvnH + Math.abs(cvnY) + 100);
-  console.log(cvnW + " - " + cvnH);
-  console.log(cvnX + " - " + cvnY);
+
   saveCanvas(doc.fileName, "jpg");
+
+  // Restore old canvas size
   resizeCanvas(orgW, orgH);
 }
