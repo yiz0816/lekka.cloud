@@ -2,10 +2,17 @@ function loadGUI() {
   // create the GUI
   gui = {};
 
-  createAddScreenButton();
+
   //createP5GUI();
   createAttributePanel();
-  createLoader();
+
+  // Tool Bar
+  createToolBar();
+  createAddScreenButton();
+  createSaveButton()
+  createPrintButton();
+  createLoadButton();
+
   createImageReplaceButton();
   createDeleteButton();
   createKeyField("test", "Start");
@@ -24,6 +31,13 @@ function createP5GUI() {
   console.log(this);
 }
 
+function createToolBar() {
+  gui.tb = createDiv()
+    .style("background-color", colors.brightGrey)
+    .id("tool-bar")
+    .class("tb");
+}
+
 function createAttributePanel() {
   gui.ap = createDiv("attribute-panel")
     .style("background-color", colors.white)
@@ -33,18 +47,43 @@ function createAttributePanel() {
 }
 
 function createAddScreenButton() {
-  var addScreenButtomn = createDiv("Add")
-    .id("floatingActionButton")
-    .style(`background-color`, colors.highlight)
+  var addScreenButtomn = createDiv("Add Screen")
+    .parent("tool-bar")
+    .class("button icon plus")
     .mouseClicked(function () {
-      new Screen(-doc.scene.offset.x + width / 2 - 300, -doc.scene.offset.y + height / 2 - 300);
-      ga('send', 'event', "Product", "Create Screen from FAB", "Using the FAB",);
+      var id = createID();
+      new Screen(-doc.scene.offset.x + width / 2 - 300, -doc.scene.offset.y + height / 2 - 300, id);
+      ga('send', 'event', "Product", "Create Screen from Button", id);
     });
 }
 
-function createLoader() {
-  gui.file = createFileInput(doc.loadFile);
-  gui.file.position(0, 0);
+function createSaveButton() {
+  var addScreenButtomn = createDiv("Save")
+    .parent("tool-bar")
+    .class("button icon save")
+    .mouseClicked(function () {
+      doc.save();
+      ga('send', 'event', "Product", "Save Layout", doc.fileName,);
+    });
+}
+
+function createPrintButton() {
+  var addScreenButtomn = createDiv("Print")
+    .parent("tool-bar")
+    .class("button icon print")
+    .mouseClicked(function () {
+      doc.printLayout();
+      ga('send', 'event', "Product", "Print Layout", doc.fileName);
+    });
+}
+
+function createLoadButton() {
+  var addScreenButtomn = createFileInput(doc.loadFile)
+    .parent("tool-bar")
+    .class("button icon upload")
+    .mouseClicked(function () {
+      ga('send', 'event', "Product", "Load Layout");
+    });
 }
 
 function createKeyField(name, value, target) {

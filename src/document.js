@@ -158,7 +158,7 @@ Document.prototype.printLayout = function () {
   doc.scene.offset.x = Math.abs(cvnX) + 50;
   doc.scene.offset.y = Math.abs(cvnY) + 50;
   resizeCanvas(cvnW + Math.abs(cvnX) + 100, cvnH + Math.abs(cvnY) + 100);
-
+  
   saveCanvas(doc.fileName, "jpg");
 
   // Restore old canvas size
